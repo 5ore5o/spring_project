@@ -3,21 +3,58 @@ package com.abshop.www;
 import java.io.PrintWriter;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.sql.rowset.Joinable;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttribute;
 
 @Controller
 public class web_Controllerx {
 	
 	PrintWriter pw =null;
+	
+	@GetMapping("/restapi.do")
+	///@SessionAttribute: session이 이미 등록되 있는 상황일 경우 해당 정보를 가져올 수 있음
+	public String restapi(@SessionAttribute(name="mid", required = false) String mid) throws Exception {//@SessionAttribute : 세션이 등록되어있으면 attribute로 바로 갖고올 수 있다.
+		if(mid==null) {
+		System.out.println("로그인 해야만 결제내역을 확인 하실 수 있습니다.");
+		}else {
+			System.out.println("결제내역은 다음과 같습니다.");
+		}
+		return null;
+	}
+	
+	//HttpSession : interface를 활용하여, 세션을 빠르게 구현하는 방식 스타일 //선생님이 쓰는 세션 방식
+	@PostMapping("/loginok.do")
+	public String loginok(@RequestParam(value="",required=false) String mid, HttpSession session) {
+		if(mid != null || mid !="") {
+		session.setAttribute("mid", mid);
+		session.setMaxInactiveInterval(1800);
+		}
+		return null;
+	}
+	
+	/*//기존에 있던 세션 방식
+	@PostMapping("/loginok.do")
+	public String loginok(String mid,HttpServletRequest req) {
+		HttpSession session = req.getSession();
+		session.setAttribute("mid", mid);
+		session.setMaxInactiveInterval(1800); //프로젝트,실무할 때 이거 안 넣으면 절단난다.//이거 유지시간 안 넣으면 계속 null뜬다 
+		System.out.println(mid);
+		return null;
+	}
+	*/
+	
 	//@CrossOrigin(origins = "*",allowedHeaders = "*")
 	@PostMapping("/ajaxok3.do")
 	public String ajaxok3(@RequestBody String arr,HttpServletResponse res) throws Exception {
@@ -29,7 +66,8 @@ public class web_Controllerx {
 		
 		System.out.println(ja1.get(0));
 		System.out.println(ja2);
-		JSONObject result = new JSONObject();
+		
+		JSONObject result = new JSONObject(ja1);
 		result.put("result", "ok");
 		this.pw = res.getWriter();
 		this.pw.print(result);
@@ -73,6 +111,7 @@ public class web_Controllerx {
 			HttpServletResponse res) throws Exception {
 		System.out.println(alldata);
 		System.out.println(alldata.get(0));
+		
 		this.pw=res.getWriter();
 		JSONObject jo= new JSONObject(); //simple
 		jo.put("result", "ok");
