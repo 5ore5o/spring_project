@@ -18,19 +18,38 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class web_Controllerx {
 	
 	PrintWriter pw =null;
+	//@CrossOrigin(origins = "*",allowedHeaders = "*")
+	@PostMapping("/ajaxok3.do")
+	public String ajaxok3(@RequestBody String arr,HttpServletResponse res) throws Exception {
+		
+		JSONArray ja=new JSONArray(arr);
+		
+		JSONArray ja1=(JSONArray)ja.get(0);
+		JSONArray ja2=(JSONArray)ja.get(1);
+		
+		System.out.println(ja1.get(0));
+		System.out.println(ja2);
+		JSONObject result = new JSONObject();
+		result.put("result", "ok");
+		this.pw = res.getWriter();
+		this.pw.print(result);
+		return null;
+	}
 	
 	//http://abc, http://www.abc 이런식으로 아무렇게나 접속할 수 있기때문에 크로스오리진쓴다.
+	//@RequestBody : jSON.stringfy
 	@CrossOrigin(origins = "*",allowedHeaders = "*")
 	@PostMapping("/ajaxok2.do")//(value="/ajaxok2.do",consumes="application/json") 이거 안 먹힌다
 	public String ajaxok2(@RequestBody String all_data,HttpServletResponse res)throws Exception {
-		System.out.println(all_data);//{"all_data":["홍길동","김유신","이순신"]}이렇게 찍혀서 밖에서부터 풀어야된다. 데이터를 끄집어내야되니까.
+		System.out.println(all_data);//{"all_data":[]}//{"all_data":["홍길동","김유신","이순신"]}이렇게 찍혀서 밖에서부터 풀어야된다. 데이터를 끄집어내야되니까.
 		
-		JSONObject jo = new JSONObject(all_data);//그냥 json
+		JSONObject jo = new JSONObject(all_data);//{}인식 시킨 후 key값으로 배열을 체크//그냥 json
 		System.out.println(jo.get("all_data"));
+		//[a,b,c] //new쓰면 [a,b,c]로 풀어놨던걸 다시 읽어서 못 풀은다. toString으로 써서 해도 된다.
 		JSONArray ja = (JSONArray)jo.get("all_data");//그냥 json
-		System.out.println(ja.get(0));
+		System.out.println(ja.get(0)); //데이터를 출력
 		
-		//json으로 프론트한테 보낸다~~
+		//Front가 dataType="json"=>JSON으로 생성하여 결과값을 회신
 		JSONObject result = new JSONObject();
 		result.put("result", "ok");
 		this.pw = res.getWriter();
