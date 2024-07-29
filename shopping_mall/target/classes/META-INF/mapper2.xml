@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="abadmin">
+
+<select id="abad_select" parameterType="Map" resultType="abaddao">
+select * from admininfo where adid=#{adid} and adpw=#{adpw}
+</select>
+
+<insert id="abad_in">
+insert into admininfo (adidx,adid,adpw,adname,adeamil,adnum,addepart,adposition,addate)
+values ('0',#{adid},#{adpw},#{adname},#{ademail},#{adnum},#{addepart},#{adposition},now())
+</insert>
+</mapper>

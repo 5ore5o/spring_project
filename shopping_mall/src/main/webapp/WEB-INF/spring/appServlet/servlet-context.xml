@@ -23,13 +23,23 @@
 	<resources mapping="/upload/**" location="/upload/"/>
 	<resources mapping="/product/**" location="/product/"/>
 	
+	<!-- 개인프로젝트 관리자 -->
+	
+	<resources mapping="/admin/**" location="/admin/"/>
+	<resources mapping="/admin/css/**" location="/admin/css/"/>
+	<resources mapping="/admin/ico/**" location="/admin/ico/"/>
+	<resources mapping="/admin/img/**" location="/admin/img/"/>
+	<resources mapping="/admin/js/**" location="/admin/js/"/>
+	<resources mapping="/admin/js/external/**" location="/admin/js/external/"/>
+	<resources mapping="/admin/js/images/**" location="/admin/js/images/"/>
+	
 	<!-- Resolves views selected for rendering by @Controllers to .jsp resources in the /WEB-INF/views directory -->
 	<beans:bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<beans:property name="prefix" value="/WEB-INF/views/" />
 		<beans:property name="suffix" value=".jsp" />
 	</beans:bean>
 	
-	<context:component-scan base-package="com.abshop.www" />
+	<context:component-scan base-package="com.abshop.www,shopping_admin,shopping" />
 	
 	
 	

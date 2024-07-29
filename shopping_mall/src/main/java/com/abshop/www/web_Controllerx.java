@@ -1,8 +1,10 @@
 package com.abshop.www;
 
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.List;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -10,6 +12,7 @@ import javax.sql.rowset.Joinable;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
+import org.springframework.context.annotation.ImportResource;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,10 +21,61 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttribute;
 
+//md5 : 회원가입, 로그인, 패스워드 변경, 1:1 문의, 자유게시판, 상품구매....
 @Controller
-public class web_Controllerx {
+public class web_Controllerx extends md5_pass {
 	
 	PrintWriter pw =null;
+	
+	//DAO 쓸 꺼면 무조건(@ModuleAttribute) ->회원가입 할 때는 무조건 이거 사용해야됨.
+	//DAO 사용 안할 시(jsp에 있는 name값만 쓸 꺼면): 자료형 객체 or @RequestParam을 이용해서 사용 -> 아이디찾기
+	@Resource(name="userselect")
+	private user_select us;
+	
+	@PostMapping("/idsearch.do")
+	public String idsearch(String []uname,String uemail,HttpServletResponse res) throws Exception { //아이디 찾기
+		res.setContentType("text/html;charset=utf-8");
+		this.pw=res.getWriter();
+		
+		try {
+		//null로 날라오면 무조건 에러나기 때문에 이거 조건 무조건 써야됨.
+		if(uname[0]==null||uemail==null) {
+			this.pw.print("<script>"
+					+ "alert('올바른 접근 방식이 아닙니다.');"
+					+ "history.go(-1);"
+					+ "</script>");
+		}else {		
+			//받는거는 ArrayList로 받을거다. 모듈 메소드에 ArrayList로 했기 때문
+			ArrayList<Object> onedata=us.search_id(uname[0], uemail);
+		}
+		}catch(Exception e) {
+			//System.out.println(e); //확인 하면 무조건 지워야됨
+			this.pw.print("<script>"
+					+ "alert('Database문제로 인하여 해당 정보가 확인 되지 않습니다.');"
+					+ "history.go(-1);"
+					+ "</script>");
+		}finally {
+			
+		}
+		return null;
+	}
+	
+	@PostMapping("/passmodify.do")
+	public String passmodify() { //패스워드 변경
+		
+		return null;
+	}
+	
+	//@Resource(name="md5pass")
+	//private md5_pass md;
+	//패스워드 변경 여부를 체크(MD5)
+	@GetMapping("/passwd.do")
+	public String passwd() {
+		String pwd = "a1234";
+		String result =this.md5_makeing(pwd); //this = md5_pass //extends쓰면 바로 this 쓰면 된다.
+		System.out.println(result);
+		return null;
+	}
 	
 	@GetMapping("/restapi.do")
 	///@SessionAttribute: session이 이미 등록되 있는 상황일 경우 해당 정보를 가져올 수 있음
@@ -55,7 +109,6 @@ public class web_Controllerx {
 	}
 	*/
 	
-	//@CrossOrigin(origins = "*",allowedHeaders = "*")
 	@PostMapping("/ajaxok3.do")
 	public String ajaxok3(@RequestBody String arr,HttpServletResponse res) throws Exception {
 		
@@ -65,12 +118,39 @@ public class web_Controllerx {
 		JSONArray ja2=(JSONArray)ja.get(1);
 		
 		System.out.println(ja1.get(0));
-		System.out.println(ja2);
+		System.out.println(ja1.get(1));
+		System.out.println(ja1.get(2));
+		System.out.println(ja2.get(0));
+		System.out.println(ja2.get(1));
+		System.out.println(ja2.get(2));
 		
-		JSONObject result = new JSONObject(ja1);
+		JSONObject result = new JSONObject();
 		result.put("result", "ok");
 		this.pw = res.getWriter();
 		this.pw.print(result);
+		return null;
+	}
+	
+	//@CrossOrigin(origins = "*",allowedHeaders = "*")
+	@PostMapping("/ajaxok4.do")
+	public String ajaxok4(@RequestBody String basket,HttpServletResponse res) throws Exception {
+		
+		JSONArray ja=new JSONArray(basket);
+		
+		JSONObject jo1=(JSONObject)ja.get(0);
+		JSONObject jo2=(JSONObject)ja.get(1);
+		JSONObject jo3=(JSONObject)ja.get(2);
+		
+		System.out.println(jo1);
+		System.out.println(jo2);
+		System.out.println(jo3);
+		
+		JSONObject result = new JSONObject();
+		result.put("result", "ok");
+		this.pw = res.getWriter();
+		this.pw.print(result);
+		
+		this.pw.close();
 		return null;
 	}
 	
@@ -92,6 +172,7 @@ public class web_Controllerx {
 		result.put("result", "ok");
 		this.pw = res.getWriter();
 		this.pw.print(result);
+		this.pw.close();
 		return null;
 	
 	}
