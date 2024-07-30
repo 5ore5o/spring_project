@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <body class="bodycss">
     <section class="admin_bgcolor">
-    <form id="adminfrm" onsubmit="return adminlogin()">
+    <form id="adminfrm" method="post" onsubmit="return adminlogin()">
         <div class="admin_login">
             <span>
                 <div class="left_div">
@@ -18,7 +18,7 @@
             </span>
             <span>
                 <ol class="admin_info">
-                    <li title="신규 관리자 등록요청">신규 관리자 등록요청</li>
+                    <li title="신규 관리자 등록요청"><a href="/admin/admin_add.jsp">신규 관리자 등록요청</a></li>
                     <li title="아이디/패스워드 찾기">아이디/패스워드 찾기</li>
                 </ol>                
             </span>
@@ -33,7 +33,6 @@ function adminlogin(){
 	
 	//암호화해서 db에서 정보 갖고와서 맞는지 확인하는 코드로 바꾸기
 	if(adid!="" && adpw!= ""){
-	adminfrm.method="post";
 	adminfrm.action="./admin_main.do";
 	return true;
 	}
