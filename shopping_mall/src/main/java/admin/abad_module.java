@@ -1,4 +1,4 @@
-package shopping_admin;
+package admin;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -12,7 +12,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
 @Repository("abmodule") //모듈이름
-public class abad_module {
+public class abad_module extends passwd_sh1{
 
 	@Resource(name="template2")
 	private SqlSessionTemplate tm2;
@@ -25,23 +25,30 @@ public class abad_module {
 	}
 	
 	//로그인 확인
-	public ArrayList<String> abad_loginck(String adid,String adpw,abad_dao dao) {
-		ArrayList<String> abloginck= new ArrayList<String>();
+	public boolean abad_loginck(String adid,String adpw,abad_dao dao) {
+		String sh1_passwd=this.sh1_making(adpw);
+		
 		Map<String, String> keycode= new HashMap<String, String>();
 		keycode.put("part", "1");
-		keycode.put("adid", adid);
-		keycode.put("adpw", adpw);
+		keycode.put("adid", dao.getAdid());
+		keycode.put("adpw", sh1_passwd);
 		keycode.put("adYN", dao.getAdYN());
 		
 		dao=tm2.selectOne("abadmin.adin_select",keycode);
-		System.out.println(dao.getAdid());
-		return abloginck;
+		
+		if(dao!=null) { //암호화된거 확인
+			return sh1_passwd.equals(dao.getAdpw());
+		}
+		return false;
 	}
 	
 	//데이터 insert
-	public int abad_insert(abad_dao dao) {	
-		int abin_result=tm2.insert("abadmin.abad_in",dao);
+	public int abad_insert(abad_dao dao,String adpw) {	
+		String sh1_passwd=this.sh1_making(adpw);
+		dao.setAdpw(sh1_passwd);
 		
+		int abin_result=tm2.insert("abadmin.abad_in",dao);
 		return abin_result;
 	}
+	
 }

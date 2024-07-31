@@ -54,12 +54,12 @@
             </form>
             <span class="admin_addbtn">
                 <button type="button" class="btn_button btncolor1" title="관리자 등록" id="adbtn">관리자 등록</button>
-                <button type="button" class="btn_button btncolor2" title="관리자 취소" id="adbtn2">등록 취소</button>
+                <button type="button" class="btn_button btncolor2" title="관리자 취소">등록 취소</button>
             </span>
         </div>
     </section>
 <script type="module">
-import {login}from "./js/addouble.js?v=2";
+import {login}from "./js/addouble.js?v=1";
 
 document.querySelector("#btn").addEventListener("click",function(){
 new login().adidcheck();
@@ -68,7 +68,5 @@ new login().adidcheck();
 document.querySelector("#adbtn").addEventListener("click",function(){
 new login().login_check();
 });
-document.querySelector("#adbtn2").addEventListener("click",function(){
-new login().login_no();
-});
+
 </script>

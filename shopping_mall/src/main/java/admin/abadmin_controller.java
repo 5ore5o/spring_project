@@ -1,4 +1,4 @@
-package shopping_admin;
+package admin;
 
 import java.io.PrintWriter;
 import java.util.ArrayList;
@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,13 +17,19 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
-public class abadmin_controller extends passwd_sh1{
+public class abadmin_controller{
 
 	
 	@Resource(name="abmodule")
 	private abad_module am;
 	
 	PrintWriter pw= null;
+	
+	@PostMapping(value="/admin/admin_logout.do")
+	public String adminlogout(HttpSession se) {
+		se.invalidate();
+		return "./";
+	}
 	
 	//리턴메소드에 스크립트 절대 사용 X
 	@PostMapping("/admin/admin_listok.do")
@@ -39,15 +46,15 @@ public class abadmin_controller extends passwd_sh1{
 		}finally {
 		this.pw.close();	
 		}
-		return "admin/admin_list";
+		return "admin_listok";
 	}
 	
 	@PostMapping("/admin/admin_insert.do")
-	public void admin_insert(@ModelAttribute("abad") abad_dao dao,HttpServletResponse res) throws Exception {
+	public String admin_insert(@ModelAttribute("abad") abad_dao dao,HttpServletResponse res,String adpw) throws Exception {
 		res.setContentType("text/html;charset=utf-8");
 		this.pw= res.getWriter();
 		try {
-		int abin_result= am.abad_insert(dao);
+		int abin_result= am.abad_insert(dao,adpw);
 		if(abin_result > 0) {
 			this.pw.print("<script>"
 					+ "alert('정상적으로 등록 완료 되었습니다.');"
@@ -62,47 +69,52 @@ public class abadmin_controller extends passwd_sh1{
 		}finally {
 			this.pw.close();
 		}
+		return "admin_insert";
 	}
 	
-	@RequestMapping(value="/admin/admin_main.do",method=RequestMethod.POST)
-	public String adminloginok(String adid,String adpw,@ModelAttribute("abad") abad_dao dao, HttpServletResponse res) throws Exception{
+	@PostMapping("/admin/admin_main.do")
+	public String adminloginok(String adid,String adpw,HttpSession se,@ModelAttribute("abad")abad_dao dao, HttpServletResponse res) throws Exception{
 		res.setContentType("text/html;charset=utf-8");
 		this.pw=res.getWriter();
-		String adpwresult=this.sh1_making(adpw);
-		
-		System.out.println(adpwresult);
 		
 		try {
-		ArrayList<String> abloginck =am.abad_loginck(adid,adpw,dao);
+		boolean abadck=am.abad_loginck(adid, adpw, dao);
 		if(adid.equals("master") && adpw.equals("shop_master123")){
+			se.setAttribute("adname", dao.getAdname());
 			this.pw.print("<script>"
 					+ "alert('최고관리자로 로그인하였습니다.');"
 					+ "location.href='/admin/admin_main.do';"
 					+ "</script>");
 		}
-		else if(dao.getAdYN()==("Y")){
-			if((abloginck.equals(adid))&& (abloginck.equals(adpwresult))) {
+		else if("Y".equals(dao.getAdYN())&& abadck){
+			se.setAttribute("adname", dao.getAdname());
 			this.pw.print("<script>"
 					+ "alert('로그인하였습니다.');"
 					+ "location.href='/admin/admin_main.do';"
 					+ "</script>");
-			}
 		}
 		else {
 			this.pw.print("<script>"
 					+ "alert('등록된 아이디 또는 비밀번호가 아닙니다.');"
 					+ "history.go(-1);"
 					+ "</script>");
+
+			System.out.println(dao.getAdYN());
+			System.out.println(abadck);
+			System.out.println(dao.getAdid());
+			System.out.println(dao.getAdpw());
+
 		}
 		}catch(Exception e) {
 		this.pw.print("<script>"
 					+ "alert('Database문제로 인하여 해당 정보가 확인 되지 않습니다.');"
 					+ "history.go(-1);"
 					+ "</script>");
+		System.out.println(e);
 		}finally {
 			this.pw.close();
 		}
 		
-		return null;
+		return "admin_main";
 	}
 }

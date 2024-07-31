@@ -6,7 +6,7 @@
 select * from admininfo 
 <choose>
 <when test="part==1">
-where adid=#{adid} and adpw=#{adpw} and adYN='Y'
+where adid=#{adid} and adpw=#{adpw} and adYN=#{adYN}
 </when>
 <otherwise>
 order by adidx desc

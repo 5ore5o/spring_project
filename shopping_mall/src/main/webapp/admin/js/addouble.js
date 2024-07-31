@@ -34,4 +34,13 @@ else{
 	*/
 }
 }
+
+login_no(){
+	if(confirm("등록을 취소하시겠습니까?")){
+	alert("등록이 취소 되었습니다.");
+	location.href="./";
+	}else{
+		alert("등록 취소가 취소되었습니다.");
+	}
+}
 }
