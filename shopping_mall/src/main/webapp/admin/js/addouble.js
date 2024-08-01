@@ -4,6 +4,9 @@ adidcheck(){
 	if(adminfrm2.adid.value==""){
 		alert("아이디를 입력하세요");
 	}
+	else if(adminfrm2.adid.value=="master"||adminfrm2.adid.value=="admin"){
+		alert("현재 사용중인 아이디입니다.")
+	}
 	else{
 		alert("중복되지 않은 아이디 입니다.");
 	}
@@ -13,6 +16,9 @@ login_check(){
 	
 if(adminfrm2.adid.value==""||adminfrm2.adpw.value==""){
 	alert("아이디 또는 비밀번호를 입력하세요.");
+}
+else if(adminfrm2.adid.value=="master"||adminfrm2.adid.value=="admin"){
+		alert("현재 사용중인 아이디입니다.")
 }
 else if(adminfrm2.adpw.value!=adminfrm2.adpwck.value){
 	alert("비밀번호가 동일하지 않습니다.");
@@ -38,7 +44,7 @@ else{
 login_no(){
 	if(confirm("등록을 취소하시겠습니까?")){
 	alert("등록이 취소 되었습니다.");
-	location.href="./";
+	location.href="./index.do";
 	}else{
 		alert("등록 취소가 취소되었습니다.");
 	}

@@ -7,10 +7,16 @@
         <%
         String adname=(String)session.getAttribute("adname");
         if(session==null||session.getAttribute("adname")==null){
-        	response.sendRedirect("./");
-        	return;
+        %>
+        <!--
+        	<script>
+        	alert('로그인을 해야 이용가능합니다.');
+        	window.location.href="./index.do";
+        	</script>
+        -->
+        <%
         }
         %>
-        <%=adname%> 관리자 <a href="#">[개인정보 수정]</a> <a href="./">[로그아웃]</a></p>
+        <%=adname %> 관리자 <a href="#">[개인정보 수정]</a> <a href="./admin_logout.do">[로그아웃]</a></p>
     </div>
 </header>

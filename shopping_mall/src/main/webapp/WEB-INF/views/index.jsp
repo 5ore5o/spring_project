@@ -11,7 +11,7 @@
     <link rel="icon" href="./img/logo.png" sizes="64x64">
     <link rel="icon" href="./img/logo.png" sizes="32x32">
     <link rel="icon" href="./img/logo.png" sizes="16x16">
-<script src="./js/jquery.js?v=2"></script>
+<script src="./js/jquery.js?v=3"></script>
 </head>
 <body>
 <!-- 상단 시작 -->
