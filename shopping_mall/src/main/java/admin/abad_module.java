@@ -26,7 +26,7 @@ public class abad_module extends passwd_sh1{
 	}
 	
 	//로그인 확인
-	public ArrayList<String> abad_loginck(String adid,String adpw,abad_dao dao) {
+	public ArrayList<String> abad_loginck(String adid,String adpw,abad_dao abdao) {
 		String sh1_passwd=this.sh1_making(adpw);
 		
 		ArrayList<String> ar= new ArrayList<String>();
@@ -34,7 +34,7 @@ public class abad_module extends passwd_sh1{
 		keycode.put("part", "1");
 		keycode.put("adid", adid);
 		keycode.put("adpw", sh1_passwd);
-		keycode.put("adYN",dao.getAdYN());
+		keycode.put("adYN",abdao.getAdYN());
 		
 		ar=tm2.selectOne("abadminDB.adin_select",keycode);
 		
@@ -42,12 +42,22 @@ public class abad_module extends passwd_sh1{
 		return ar;
 	}
 	
+	//id 중복체크
+	public String ab_idck(String adid,abad_dao abdao) {
+		String adid_ck= tm2.selectOne("abadminDB.id_check",adid);
+		if(abdao.getAdid()==adid) {
+			System.out.println(adid_ck);
+			return adid_ck;
+		}
+		return null;
+	}
+	
 	//데이터 insert
-	public int abad_insert(abad_dao dao,String adpw) {	
+	public int abad_insert(abad_dao abdao,String adpw) {	
 		String sh1_passwd=this.sh1_making(adpw);
-		dao.setAdpw(sh1_passwd);
+		abdao.setAdpw(sh1_passwd);
 		
-		int abin_result=tm2.insert("abadminDB.abad_in",dao);
+		int abin_result=tm2.insert("abadminDB.abad_in",abdao);
 		return abin_result;
 	}
 	

@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
@@ -18,13 +19,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 public class abadmin_controller{
-
-	@Resource(name="dao")
-	private abad_dao dao;
 	
+	@Resource(name="abdao")
+	private abad_dao abdao;
 	@Resource(name="abmodule")
 	private abad_module am;
 	
@@ -48,7 +49,7 @@ public class abadmin_controller{
 		return "admin_master_list";
 	}
 	
-	
+	/*
 	@PostMapping("/admin/admin_main.do")
 	public String adminloginok(String adid,String adpw,HttpSession se,HttpServletResponse res,String adYN) throws Exception{
 		res.setContentType("text/html;charset=utf-8");
@@ -96,14 +97,34 @@ public class abadmin_controller{
 		
 		return null;
 	}
-	
+	*/
+	@PostMapping("/admin/idcheck.do")
+	public String idcheck(HttpServletResponse res,String adid) throws Exception {
+		res.setContentType("application/json;charset=utf-8");
+		String adckresult="";
+		
+		if(adid.equals("master")||adid.equals("admin")||adid.equals(abdao.getAdid())) {
+			adckresult="no";
+		}
+		else if(adid.equals("")) {
+			adckresult="error";
+		}
+		else {
+			adckresult="yes";
+		}
+		this.pw=res.getWriter();
+		this.pw.print(adckresult);
+		this.pw.close();
+		
+	return null;
+	} 
 	
 	@PostMapping("/admin/admin_insert.do")
 	public String admin_insert(HttpServletResponse res,String adpw) throws Exception {
 		res.setContentType("text/html;charset=utf-8");
 		this.pw= res.getWriter();
 		try {
-			int abin_result= am.abad_insert(dao,adpw);
+			int abin_result= am.abad_insert(abdao,adpw);
 			if(abin_result > 0) {
 				this.pw.print("<script>"
 						+ "alert('정상적으로 등록 완료 되었습니다.');"
@@ -120,13 +141,17 @@ public class abadmin_controller{
 		return null;
 	}
 	
-	//로그아웃
+	//신규 관리자 등록페이지
+	@GetMapping("/admin/admin_add.do")
+	public String addad(){
+		return "admin_add";
+	}
+	//로그아웃페이지
 	@GetMapping("/admin/logout.do")
 	public String logout(HttpSession se) {
 		se.invalidate();
 		return "logout";
 	}
-	
 	//메인페이지
 	@GetMapping("/admin/index.do")
 	public String index(){

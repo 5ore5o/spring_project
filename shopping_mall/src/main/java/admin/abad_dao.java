@@ -7,9 +7,9 @@ import org.springframework.stereotype.Repository;
 import lombok.Getter;
 import lombok.Setter;
 
-@Repository("dao")
 @Getter
 @Setter
+@Repository("abdao")
 public class abad_dao {
 
 	int adidx;

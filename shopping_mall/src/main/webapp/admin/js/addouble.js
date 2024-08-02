@@ -50,3 +50,34 @@ login_no(){
 	}
 }
 }
+
+//ajax
+$(function(){
+	$("#btn").click(function(){
+		$.ajax({
+		url :"./idcheck.do",
+		cache : false,
+		type : "post",
+		dataType:"html",
+		
+		data:{
+		adid : $("#adid").val()
+		},
+		contentType:"application/x-www-form-urlencoded",
+		success : function($data,$adckresult){
+			if($data=="no"){
+				alert("이미 사용중인 아이디 입니다.");
+			}
+			else if($data=="error"){
+				alert("아이디 값을 넣어주세요.");
+			}
+			else{
+				alert("사용 가능한 아이디 입니다.");
+			}
+		},
+		error : function ($adckresult){
+			alert("통신오류발생으로 인해 작동되지 않습니다.");
+		}	
+		});
+	});
+});
