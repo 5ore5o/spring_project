@@ -27,7 +27,6 @@ public class user_select {
 		//값을 다 끌고 오기 때문에 dao사용
 		user_dao dao= tm.selectOne("Shopping_mall.search",keycode);//데이터 1개만 들고오기 때문에 one이다.list아니다.
 		System.out.println(dao.getUid());
-		
 		return onedata;
 	}
 }

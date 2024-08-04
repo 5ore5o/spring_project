@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <body class="bodycss">
     <section class="admin_bgcolor">
-    <form id="adminfrm" method="post" onsubmit="return adminlogin()">
+    <form id="adminfrm" method="POST" onsubmit="return adminlogin()">
     <input type="hidden" name="adYN" value="N">
         <div class="admin_login">
             <span>

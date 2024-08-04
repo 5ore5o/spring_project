@@ -7,7 +7,7 @@
                 <li class="font_color1">아이디 및 패스워드 정보</li>
 
                 <li>
-                <input type="text" class="add_input1" placeholder="생성할 관리자 아이디를 입력하세요" name="adid">
+                <input type="text" class="add_input1" placeholder="생성할 관리자 아이디를 입력하세요" name="adid" id="adid">
                 <button type="button"  class="btn_button" id="btn">중복체크</button>
                 </li>
                 <li>
@@ -54,19 +54,17 @@
             </form>
             <span class="admin_addbtn">
                 <button type="button" class="btn_button btncolor1" title="관리자 등록" id="adbtn">관리자 등록</button>
-                <button type="button" class="btn_button btncolor2" title="관리자 취소">등록 취소</button>
+                <button type="button" class="btn_button btncolor2" title="관리자 취소" id="adbtn2">등록 취소</button>
             </span>
         </div>
     </section>
 <script type="module">
 import {login}from "./js/addouble.js?v=1";
 
-document.querySelector("#btn").addEventListener("click",function(){
-new login().adidcheck();
-	
-});
 document.querySelector("#adbtn").addEventListener("click",function(){
 new login().login_check();
 });
-
+document.querySelector("#adbtn2").addEventListener("click",function(){
+new login().login_no();
+});
 </script>

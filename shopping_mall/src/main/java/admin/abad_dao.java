@@ -2,11 +2,14 @@ package admin;
 
 import java.util.ArrayList;
 
+import org.springframework.stereotype.Repository;
+
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
+@Repository("abdao")
 public class abad_dao {
 
 	int adidx;

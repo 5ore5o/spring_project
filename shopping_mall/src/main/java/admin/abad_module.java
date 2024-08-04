@@ -14,6 +14,7 @@ import org.springframework.stereotype.Repository;
 @Repository("abmodule") //모듈이름
 public class abad_module extends passwd_sh1{
 
+	
 	@Resource(name="template2")
 	private SqlSessionTemplate tm2;
 	
@@ -25,29 +26,38 @@ public class abad_module extends passwd_sh1{
 	}
 	
 	//로그인 확인
-	public boolean abad_loginck(String adid,String adpw,abad_dao dao) {
+	public ArrayList<String> abad_loginck(String adid,String adpw,abad_dao abdao) {
 		String sh1_passwd=this.sh1_making(adpw);
 		
+		ArrayList<String> ar= new ArrayList<String>();
 		Map<String, String> keycode= new HashMap<String, String>();
 		keycode.put("part", "1");
-		keycode.put("adid", dao.getAdid());
+		keycode.put("adid", adid);
 		keycode.put("adpw", sh1_passwd);
-		keycode.put("adYN", dao.getAdYN());
+		keycode.put("adYN",abdao.getAdYN());
 		
-		dao=tm2.selectOne("abadmin.adin_select",keycode);
+		ar=tm2.selectOne("abadminDB.adin_select",keycode);
 		
-		if(dao!=null) { //암호화된거 확인
-			return sh1_passwd.equals(dao.getAdpw());
+		
+		return ar;
+	}
+	
+	//id 중복체크
+	public String ab_idck(String adid,abad_dao abdao) {
+		String adid_ck= tm2.selectOne("abadminDB.id_check",adid);
+		if(abdao.getAdid()==adid) {
+			System.out.println(adid_ck);
+			return adid_ck;
 		}
-		return false;
+		return null;
 	}
 	
 	//데이터 insert
-	public int abad_insert(abad_dao dao,String adpw) {	
+	public int abad_insert(abad_dao abdao,String adpw) {	
 		String sh1_passwd=this.sh1_making(adpw);
-		dao.setAdpw(sh1_passwd);
+		abdao.setAdpw(sh1_passwd);
 		
-		int abin_result=tm2.insert("abadmin.abad_in",dao);
+		int abin_result=tm2.insert("abadminDB.abad_in",abdao);
 		return abin_result;
 	}
 	
