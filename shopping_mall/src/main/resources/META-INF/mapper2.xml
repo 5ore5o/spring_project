@@ -6,7 +6,7 @@
 select * from admininfo 
 <choose>
 <when test="part==1">
-where adid=#{adid} and adpw=#{adpw} and adYN=#{adYN}
+where adid=#{adid} and adpw=#{adpw} and adYN='Y' 
 </when>
 <otherwise>
 order by adidx desc
@@ -14,8 +14,8 @@ order by adidx desc
 </choose>
 </select>
 
-<select id="id_check" resultType="abaddao">
-select*from admininfo where adid=#{adid}
+<select id="id_check" parameterType="String" resultType="Integer">
+select count(*) from admininfo where adid=#{adid}
 </select>
 
 <insert id="abad_in">

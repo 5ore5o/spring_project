@@ -3,29 +3,20 @@ package admin;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 public class abadmin_controller{
 	
-	@Resource(name="abdao")
-	private abad_dao abdao;
+
 	@Resource(name="abmodule")
 	private abad_module am;
 	
@@ -49,17 +40,13 @@ public class abadmin_controller{
 		return "admin_master_list";
 	}
 	
-	/*
 	@PostMapping("/admin/admin_main.do")
-	public String adminloginok(String adid,String adpw,HttpSession se,HttpServletResponse res,String adYN) throws Exception{
+	public String adminloginok(String adid,String adpw,HttpSession se,HttpServletResponse res,abad_dao abdao,String adYN) throws Exception{
 		res.setContentType("text/html;charset=utf-8");
 		this.pw=res.getWriter();
-		ArrayList<String> mre=null;
+		//ArrayList<String> ablogindata=am.abad_loginck(adid, adpw, adYN,abdao);
 		try {
-			if(adid.equals("")&&adpw.equals("")&&adYN.equals("")) {
-			mre=am.abad_loginck(adid, adpw, dao);
-			}
-			else if(adid.equals("master") && adpw.equals("shop_master123")){
+			if(adid.equals("master") && adpw.equals("shop_master123")){
 			//se.setAttribute("adname",dao.getAdname());
 			this.pw.print("<script>"
 					+ "alert('최고관리자로 로그인하였습니다.');"
@@ -67,7 +54,7 @@ public class abadmin_controller{
 					+ "location.href='/admin/admin_master_list.do';"
 					+ "</script>");
 		}
-		else if(dao.getAdYN().equals("Y")){
+		else if(abdao.getAdYN().equals("Y")&&adid.equals(abdao.getAdid())&&adpw.equals(abdao.getAdpw())){
 			//se.setAttribute("adname", dao.getAdname());
 			this.pw.print("<script>"
 					+ "alert('로그인하였습니다.');"
@@ -80,30 +67,27 @@ public class abadmin_controller{
 					+ "alert('등록된 아이디 또는 비밀번호가 아닙니다.');"
 					+ "history.go(-1);"
 					+ "</script>");
-			System.out.println(dao.getAdYN());
-			
-
-		}
-		
-		}catch(Exception e) {
+		}}catch(Exception e) {
 		this.pw.print("<script>"
 					+ "alert('Database문제로 인하여 해당 정보가 확인 되지 않습니다.');"
 					+ "history.go(-1);"
 					+ "</script>");
+		System.out.println(abdao.getAdYN());
+		System.out.println(abdao.getAdid());
+		System.out.println(abdao.getAdpw());
 		System.out.println(e);
 		}
 		this.pw.close();
-
-		
 		return null;
 	}
-	*/
+	
 	@PostMapping("/admin/idcheck.do")
-	public String idcheck(HttpServletResponse res,String adid) throws Exception {
+	public String idcheck(HttpServletResponse res,String adid,abad_dao abdao) throws Exception {
 		res.setContentType("application/json;charset=utf-8");
 		String adckresult="";
+		int adidck=am.ab_idck(adid, abdao);
 		
-		if(adid.equals("master")||adid.equals("admin")||adid.equals(abdao.getAdid())) {
+		if(adid.equals("master")||adid.equals("admin")||adidck>0) {
 			adckresult="no";
 		}
 		else if(adid.equals("")) {
@@ -120,7 +104,7 @@ public class abadmin_controller{
 	} 
 	
 	@PostMapping("/admin/admin_insert.do")
-	public String admin_insert(HttpServletResponse res,String adpw) throws Exception {
+	public String admin_insert(HttpServletResponse res,String adpw,abad_dao abdao) throws Exception {
 		res.setContentType("text/html;charset=utf-8");
 		this.pw= res.getWriter();
 		try {
@@ -153,7 +137,7 @@ public class abadmin_controller{
 		return "logout";
 	}
 	//메인페이지
-	@GetMapping("/admin/index.do")
+	@GetMapping("/admin")
 	public String index(){
 	return "index";
 	}

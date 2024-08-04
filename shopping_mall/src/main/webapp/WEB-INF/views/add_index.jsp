@@ -3,7 +3,6 @@
 <body class="bodycss">
     <section class="admin_bgcolor">
     <form id="adminfrm" method="POST" onsubmit="return adminlogin()">
-    <input type="hidden" name="adYN" value="N">
         <div class="admin_login">
             <span>
                 <div class="left_div">
@@ -19,7 +18,7 @@
             </span>
             <span>
                 <ol class="admin_info">
-                    <li title="신규 관리자 등록요청"><a href="/admin/admin_add.jsp">신규 관리자 등록요청</a></li>
+                    <li title="신규 관리자 등록요청"><a href="/admin/admin_add.do">신규 관리자 등록요청</a></li>
                     <li title="아이디/패스워드 찾기">아이디/패스워드 찾기</li>
                 </ol>                
             </span>

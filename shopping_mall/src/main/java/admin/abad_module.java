@@ -26,30 +26,33 @@ public class abad_module extends passwd_sh1{
 	}
 	
 	//로그인 확인
-	public ArrayList<String> abad_loginck(String adid,String adpw,abad_dao abdao) {
+	public ArrayList<String> abad_loginck(String adid,String adpw,String adYN,abad_dao abdao) {
+		if(abdao.getAdYN()==null||adYN==null) {
+			System.out.println(abdao.getAdYN());
+			System.out.println(adYN);
+		}
+		
 		String sh1_passwd=this.sh1_making(adpw);
 		
-		ArrayList<String> ar= new ArrayList<String>();
+		ArrayList<String> onelogindata= new ArrayList<String>();
 		Map<String, String> keycode= new HashMap<String, String>();
 		keycode.put("part", "1");
 		keycode.put("adid", adid);
 		keycode.put("adpw", sh1_passwd);
-		keycode.put("adYN",abdao.getAdYN());
 		
-		ar=tm2.selectOne("abadminDB.adin_select",keycode);
-		
-		
-		return ar;
+		onelogindata= tm2.selectOne("abadminDB.adin_select",keycode);
+		return onelogindata;
 	}
 	
+	
 	//id 중복체크
-	public String ab_idck(String adid,abad_dao abdao) {
-		String adid_ck= tm2.selectOne("abadminDB.id_check",adid);
-		if(abdao.getAdid()==adid) {
-			System.out.println(adid_ck);
-			return adid_ck;
+	public int ab_idck(String adid,abad_dao abdao) {
+		Integer idck_result= tm2.selectOne("abadminDB.id_check",adid);
+		if(abdao != null&& abdao.getAdid() !=null) {
+			System.out.println(abdao.getAdid());
+			return idck_result;
 		}
-		return null;
+		return 0;
 	}
 	
 	//데이터 insert
