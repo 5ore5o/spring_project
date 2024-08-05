@@ -28,7 +28,7 @@ public class abadmin_controller{
 	public String admin_list(Model m,HttpServletResponse res) throws Exception{
 		res.setContentType("text/html;charset=utf-8");
 		this.pw=res.getWriter();
-		/*
+		
 		try {
 			List<abad_dao> adin_data = am.adin_data();
 			m.addAttribute("adin_data",adin_data);
@@ -38,10 +38,8 @@ public class abadmin_controller{
 					+ "</script>");
 			this.pw.close();	
 		}
-		*/
 		return "admin_master_list";
 	}
-	
 	
 	@PostMapping("/admin/admin_main.do")
 	public String adminloginok(String adid,String adpw,HttpSession se,HttpServletResponse res) throws Exception{

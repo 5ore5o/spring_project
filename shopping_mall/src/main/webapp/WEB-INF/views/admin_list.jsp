@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@taglib prefix="cr" uri="http://java.sun.com/jsp/jstl/core" %>
 <nav class="navcss">
     <div class="nav_div">
         <ol>
@@ -29,8 +30,9 @@
     <ol class="new_admin_none">
         <li>신규 등록된 관리자가 없습니다.</li>
     </ol>
+    <cr:forEach var="listdata" items="${adin_data}">
     <ol class="new_admin_lists2">
-        <li>1</li>
+        <li>${listdata.adidx}</li>
         <li>한석봉</li>
         <li>hansbong</li>
         <li>01012345678</li>
@@ -43,6 +45,7 @@
             <input type="button" value="미승인" class="new_addbtn2" title="미승인">
         </li>
     </ol>
+    </cr:forEach>
 </section>
 <section></section>
 <section></section>

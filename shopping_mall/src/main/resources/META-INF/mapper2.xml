@@ -2,6 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="abadminDB">
 
+
 <select id="adin_select" parameterType="Map" resultType="abaddao">
 select * from admininfo 
 <choose>
@@ -12,6 +13,11 @@ where adid=#{adid} and adpw=#{adpw} and adYN='Y'
 order by adidx desc
 </otherwise>
 </choose>
+</select>
+
+
+<select id="adli_select" resultType="abaddao"> 
+select adidx,adid,adname,ademail,adnum1,adnum2,adnum3,addepart,adposition,adYN,addate from admininfo
 </select>
 
 <select id="id_check" parameterType="String" resultType="Integer">
