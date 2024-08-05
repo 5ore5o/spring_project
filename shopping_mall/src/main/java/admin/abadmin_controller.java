@@ -28,6 +28,7 @@ public class abadmin_controller{
 	public String admin_list(Model m,HttpServletResponse res) throws Exception{
 		res.setContentType("text/html;charset=utf-8");
 		this.pw=res.getWriter();
+		/*
 		try {
 			List<abad_dao> adin_data = am.adin_data();
 			m.addAttribute("adin_data",adin_data);
@@ -37,34 +38,34 @@ public class abadmin_controller{
 					+ "</script>");
 			this.pw.close();	
 		}
+		*/
 		return "admin_master_list";
 	}
 	
+	
 	@PostMapping("/admin/admin_main.do")
-	public String adminloginok(String adid,String adpw,HttpSession se,HttpServletResponse res,abad_dao abdao,String adYN) throws Exception{
+	public String adminloginok(String adid,String adpw,HttpSession se,HttpServletResponse res) throws Exception{
 		res.setContentType("text/html;charset=utf-8");
 		this.pw=res.getWriter();
-		//ArrayList<String> ablogindata=am.abad_loginck(adid, adpw, adYN,abdao);
 		try {
+			abad_dao abdao=am.abad_loginck(adid, adpw);
+			if(abdao !=null) {
 			if(adid.equals("master") && adpw.equals("shop_master123")){
-			//se.setAttribute("adname",dao.getAdname());
-			this.pw.print("<script>"
+			se.setAttribute("adname", abdao.getAdname());
+				this.pw.print("<script>"
 					+ "alert('최고관리자로 로그인하였습니다.');"
 					//+ "location.href='/admin/admin_main.do';"
 					+ "location.href='/admin/admin_master_list.do';"
 					+ "</script>");
-		}
-		else if(abdao.getAdYN().equals("Y")&&adid.equals(abdao.getAdid())&&adpw.equals(abdao.getAdpw())){
-			//se.setAttribute("adname", dao.getAdname());
+		}else{
+			se.setAttribute("adname", abdao.getAdname());
 			this.pw.print("<script>"
 					+ "alert('로그인하였습니다.');"
-					//+ "location.href='/admin/admin_main.do';"
-					+ "location.href='/admin/admin_master_list.do';"
+					+ "location.href='/admin/admin_main.do';"
 					+ "</script>");
-		}
-		else {
+		}}else {
 			this.pw.print("<script>"
-					+ "alert('등록된 아이디 또는 비밀번호가 아닙니다.');"
+					+ "alert('등록되거나 승인된 아이디 또는 비밀번호가 아닙니다.');"
 					+ "history.go(-1);"
 					+ "</script>");
 		}}catch(Exception e) {
@@ -72,9 +73,6 @@ public class abadmin_controller{
 					+ "alert('Database문제로 인하여 해당 정보가 확인 되지 않습니다.');"
 					+ "history.go(-1);"
 					+ "</script>");
-		System.out.println(abdao.getAdYN());
-		System.out.println(abdao.getAdid());
-		System.out.println(abdao.getAdpw());
 		System.out.println(e);
 		}
 		this.pw.close();
@@ -124,7 +122,7 @@ public class abadmin_controller{
 		this.pw.close();
 		return null;
 	}
-	
+
 	//신규 관리자 등록페이지
 	@GetMapping("/admin/admin_add.do")
 	public String addad(){
@@ -132,8 +130,15 @@ public class abadmin_controller{
 	}
 	//로그아웃페이지
 	@GetMapping("/admin/logout.do")
-	public String logout(HttpSession se) {
+	public String logout(HttpSession se,HttpServletResponse res) throws Exception {
 		se.invalidate();
+		res.setContentType("text/html;charset=utf-8");
+		this.pw=res.getWriter();
+		this.pw.print("<script>"
+				+ "alert('로그아웃 되었습니다.');"
+				+ "window.location.href='./';"
+				+ "</script>");
+		this.pw.close();
 		return "logout";
 	}
 	//메인페이지

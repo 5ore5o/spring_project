@@ -6,14 +6,14 @@
         <p>
         <%
         String adname=(String)session.getAttribute("adname");
-        if(session==null||session.getAttribute("adname")==null){
+        if(session==null||adname==null){
         %>
-        <!--
+        
         	<script>
         	alert('로그인을 해야 이용가능합니다.');
-        	window.location.href="./index.do";
+        	window.location.href="./";
         	</script>
-        -->
+        
         <%
         }
         %>

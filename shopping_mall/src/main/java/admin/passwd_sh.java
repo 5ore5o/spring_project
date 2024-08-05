@@ -2,11 +2,11 @@ package admin;
 
 import java.security.MessageDigest;
 
-abstract class passwd_sh1 {
-	public String sh1_making(String adpw) {
+abstract class passwd_sh {
+	public String sh2_making(String adpw) {
 		StringBuilder sb= new StringBuilder();
 		try {
-		MessageDigest md= MessageDigest.getInstance("SHA1");	
+		MessageDigest md= MessageDigest.getInstance("SHA256");	
 		md.update(adpw.getBytes());
 		for(byte bt: md.digest()) {
 			sb.append(String.format("%x", bt));
@@ -16,4 +16,5 @@ abstract class passwd_sh1 {
 		}
 		return sb.toString();
 	}
+	
 }
