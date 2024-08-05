@@ -46,17 +46,17 @@ public class abadmin_controller{
 		res.setContentType("text/html;charset=utf-8");
 		this.pw=res.getWriter();
 		try {
-			abad_dao abdao=am.abad_loginck(adid, adpw);
+			abad_dao abdao=am.abad_loginck(adid,adpw,se);
 			if(abdao !=null) {
 			if(adid.equals("master") && adpw.equals("shop_master123")){
-			se.setAttribute("adname", abdao.getAdname());
+
 				this.pw.print("<script>"
 					+ "alert('최고관리자로 로그인하였습니다.');"
 					//+ "location.href='/admin/admin_main.do';"
 					+ "location.href='/admin/admin_master_list.do';"
 					+ "</script>");
 		}else{
-			se.setAttribute("adname", abdao.getAdname());
+
 			this.pw.print("<script>"
 					+ "alert('로그인하였습니다.');"
 					+ "location.href='/admin/admin_main.do';"
