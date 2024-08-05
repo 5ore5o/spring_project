@@ -1,0 +1,30 @@
+package admin;
+
+import java.security.MessageDigest;
+import java.util.Base64;
+import java.util.Base64.Decoder;
+
+abstract class passwd_sh {
+	public String sh2_making(String adpw) {
+		StringBuilder sb= new StringBuilder();
+		try {
+		MessageDigest md= MessageDigest.getInstance("SHA256");	
+		md.update(adpw.getBytes());
+		for(byte bt: md.digest()) {
+			sb.append(String.format("%x", bt));
+		}
+		}catch(Exception e) {
+			sb.append("인자값 오류 발생으로 생성 되지 않음");
+		}
+		return sb.toString();
+	}
+	
+	public String sh2_re(String adpw) {
+		
+		Decoder dc= Base64.getDecoder();
+		byte shre[]=dc.decode(adpw);
+		System.out.println(new String(shre));
+		
+		return shre;
+	}
+}
