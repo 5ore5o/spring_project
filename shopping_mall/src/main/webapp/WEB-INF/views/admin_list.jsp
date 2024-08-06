@@ -3,6 +3,7 @@
 <%@taglib prefix="cr" uri="http://java.sun.com/jsp/jstl/core" %>
 <%
 String adid=(String)session.getAttribute("adid");
+String adYN=(String)session.getAttribute("adYN");
 %>
 <nav class="navcss">
     <div class="nav_div">
@@ -48,12 +49,14 @@ String adid=(String)session.getAttribute("adid");
         <li>${listdata.adposition}</li>
         <li>2024-07-29</li>
         <li>
-     	<cr:if test="${listdata.adYN!=null&&listdata.adYN=='N'}">
-            <input type="button" value="승인" class="new_addbtn1" title="승인" onclick="adok()">
+        <form id="adminfrm3">
+     	<cr:if test="${listdata.adYN!=null&&listdata.adYN=='미승인'}">
+            <input type="button" value="${listdata.adYN}" class="new_addbtn1" title="승인" onclick="adok()">
         </cr:if>
-     	<cr:if test="${listdata.adYN!=null&&listdata.adYN=='Y'}">
-            <input type="button" value="미승인" class="new_addbtn2" title="미승인" onclick="adno()">
+     	<cr:if test="${listdata.adYN!=null&&listdata.adYN=='승인'}">
+            <input type="button" value="${listdata.adYN}" class="new_addbtn2" title="미승인" onclick="adno()">
         </cr:if>
+        </form>
         </li>
     </ol>
     </cr:forEach>
@@ -63,9 +66,23 @@ String adid=(String)session.getAttribute("adid");
 </main>
 <script>
 function adok(){
-	
+	if(confirm("관리자 승인을 진행 하시겠습니까?")){
+		alert("관리자 승인되었습니다.");
+		adminfrm3.method="post";
+		adminfrm3.action="./YN_up.do";
+		adminfrm3.submit();
+		}else{
+			alert("승인이 취소되었습니다.");
+		}
 }
 function adno(){
-	
+	if(confirm("관리자 승인해제 하시겠습니까?")){
+		alert("승인해제 되었습니다.");
+		adminfrm3.method="post";
+		adminfrm3.action="./YN_up.do";
+		adminfrm3.submit();
+		}else{
+			alert("해제가 취소되었습니다.");
+		}
 }
 </script>

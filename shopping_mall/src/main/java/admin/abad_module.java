@@ -20,6 +20,35 @@ public class abad_module extends passwd_sh{
 	@Resource(name="template2")
 	private SqlSessionTemplate tm2;
 	
+	/*
+	//관리자 승인,해제
+	public abad_dao adY_up(abad_dao abdao,String adid){
+		
+		Map<String,String> keycode=new HashMap<String, String>();
+		keycode.put("part", "2");
+		keycode.put("adid", adid);
+		
+		abad_dao abdao=tm2.update("abadminDB.adYN_update",keycode);
+		if(abdao.getAdYN().equals("Y")) {
+			
+			abdao.setAdYN("N");
+			return abdao;
+		}
+	return null;
+	}
+	public abad_dao adN_up(String adid){
+		Map<String,String> keycode=new HashMap<String, String>();
+		keycode.put("part", "1");
+		keycode.put("adid", adid);
+		abad_dao abdao=tm2.update("abadminDB.adYN_update",keycode);
+		
+		if(abdao.getAdYN().equals("N")) {
+			abdao.setAdYN("Y");
+			return abdao;
+		}
+	return null;
+	}
+	*/
 	
 	//관리자 신청 게시물
 	public List<abad_dao> adin_data(){
@@ -53,7 +82,6 @@ public class abad_module extends passwd_sh{
 	public int ab_idck(String adid,abad_dao abdao) {
 		Integer idck_result= tm2.selectOne("abadminDB.id_check",adid);
 		if(abdao != null&& abdao.getAdid() !=null) {
-			System.out.println(abdao.getAdid());
 			return idck_result;
 		}
 		return 0;

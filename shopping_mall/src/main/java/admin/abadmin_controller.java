@@ -21,7 +21,34 @@ public class abadmin_controller{
 	private abad_module am;
 	
 	PrintWriter pw= null;
-	
+	/*
+	@PostMapping("/admin/YN_up.do")
+	public String YN_up(HttpServletResponse res,String adid,abad_dao abado,String adYN) throws Exception {
+		res.setContentType("text/html;charset=utf-8");
+		this.pw=res.getWriter();
+		try {
+			if(adYN.equals("N")) {
+				int abY=am.adY_up(abado,adid);
+				this.pw.write("<script>"
+						+ "location.href='./admin_master_list.do';"
+						+ "</script>");
+			}
+			else if(adYN.equals("Y")) {
+				int abN=am.adN_up(abado,adid);
+				this.pw.write("<script>"
+						+ "location.href='./admin_master_list.do';"
+						+ "</script>");
+			}
+		}catch(Exception e) {
+			this.pw.write("<script>"
+					+ "alert('데이터 오류가 발생해 수정되지 않았습니다.');"
+					+ "location.href='./admin_master_list.do';"
+					+ "</script>");
+		}
+		this.pw.close();
+		return null;
+	}
+	*/
 	
 	//리턴메소드에 스크립트 절대 사용 X
 	@GetMapping("/admin/admin_master_list.do")
@@ -116,6 +143,8 @@ public class abadmin_controller{
 					+ "alert('DB 오류로 인하여 등록되지 않았습니다.');"
 					+ "history.go(-1);"
 					+ "</script>");
+			
+			System.out.println(e);
 		}
 		this.pw.close();
 		return null;
