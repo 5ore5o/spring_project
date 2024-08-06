@@ -38,10 +38,11 @@ String adYN=(String)session.getAttribute("adYN");
         <li>신규 등록된 관리자가 없습니다.</li>
     </ol>
     </cr:if>
+    
     <cr:forEach var="listdata" items="${adin_data}" varStatus="status">
-    <form id="adminfrm3">
-    <input type="hidden" name="adYN" value="${listdata.adYN}">
-    <input type="hidden" name="adidx" value="${listdata.adidx}">
+     <form id="adminfrm${status.index}">
+        <input type="hidden" name="adYN" value="${listdata.adYN}">
+        <input type="hidden" name="adidx" value="${listdata.adidx}">
     <ol class="new_admin_lists2">
         <li>${listdata.adidx}</li>
         <li>${listdata.adname}</li>
@@ -60,7 +61,7 @@ String adYN=(String)session.getAttribute("adYN");
         </cr:if>
         </li>
     </ol>
-   </form>
+    </form>
     </cr:forEach>
 </section>
 <section></section>
@@ -68,7 +69,7 @@ String adYN=(String)session.getAttribute("adYN");
 </main>
 <script>
 function adok(){
-	var form=document.getElementById("adminfrm3");
+	var form=document.getElementById("adminfrm${status.index}");
 	if(confirm("관리자 승인을 진행 하시겠습니까?")){
 		alert("관리자 승인되었습니다.");
 		form.method="post";
@@ -76,10 +77,12 @@ function adok(){
 		form.submit();
 		}else{
 			alert("승인이 취소되었습니다.");
+	var adidx=document.getElementsByName("adidx").value;
+	console.log(adidx);
 		}
 }
 function adno(){
-	var form=document.getElementById("adminfrm3");
+	var form=document.getElementById("adminfrm${status.index}");
 	if(confirm("관리자 승인해제 하시겠습니까?")){
 		alert("승인해제 되었습니다.");
 		form.method="post";
