@@ -1,0 +1,4 @@
+function ajax_data(){
+	var http,result;
+	http = new XMLHttpRequest();
+}

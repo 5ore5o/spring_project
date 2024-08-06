@@ -1,0 +1,42 @@
+function ajax_data(){
+	var http;
+	http = new XMLHttpRequest();
+	http.onreadystatechange = function(){
+		if(http.readyState == 4 && http.status==200){
+			html_code(JSON.parse(this.response));
+		}
+	}
+	http.open("GET","./coupon_api.do",true);
+	http.send();
+}
+ajax_data();
+
+//JSON데이터를 HTML로 출력
+function html_code(data){
+	var pageno = 0; // 페이지 번호
+	var datano = 2;	// 1페이지당 2개의 데이터
+	var counting=0; // 카운팅 값
+	var ea=data.length; // API Data 총 배열 개수
+	var result = document.getElementById("list");
+	document.getElementById("total").append(ea);
+	var pagehtml=document.getElementById("pages");
+	
+	//페이징 출력
+	var pgtotal=
+	
+	//데이터를 출력
+	data.forEach(function(a,b,c){
+		if(counting < datano){	
+		result.innerHTML += `
+		<tr>
+		<td>`+(ea-b)+`</td>
+		<td>`+data[b]["cpname"]+`</td>
+		<td>`+data[b]["cprate"]+`</td>
+		<td>`+data[b]["cpuse"]+`</td>
+		<td>`+data[b]["cpdate"]+`</td>
+		</tr>
+		`;
+		}
+		counting++;
+	});
+}

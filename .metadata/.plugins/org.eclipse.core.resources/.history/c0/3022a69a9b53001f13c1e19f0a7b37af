@@ -1,0 +1,31 @@
+function ajax_data(){
+	var http;
+	http = new XMLHttpRequest();
+	http.onreadystatechange = function(){
+		if(http.readyState == 4 && http.status==200){
+			html_code(JSON.parse(this.response));
+		}
+	}
+	http.open("GET","./coupon_api.do",true);
+	http.send();
+}
+ajax_data();
+
+//JSON데이터를 HTML로 출력
+function html_code(data){
+	var ea=data.length;
+	var result = document.getElementById("list");
+	document.getElementById("total").append(ea);
+	data.forEach(function(a,b,c){
+		//console.log(a);
+		result.innerHTML +=
+		<tr>
+		<td></td>
+		<td></td>
+		<td></td>
+		<td></td>
+		<td></td>
+		</tr>
+		;
+	});
+}

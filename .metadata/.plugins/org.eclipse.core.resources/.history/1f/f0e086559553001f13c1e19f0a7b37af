@@ -1,0 +1,172 @@
+package pay;
+
+import java.io.PrintWriter;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
+@Controller
+public class pay_controller {
+	
+	
+	//프론트가 페이징 찍는 방법 ! 파라미터값에 절대 노출 안됨! API형태
+	@GetMapping("/pay/coupon_api.do")
+	public String coupon_api(HttpServletResponse res) throws Exception {
+		PrintWriter pw=null;
+		JSONObject jo =null;
+		JSONArray ja= null;
+		
+		Connection con =null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		int startpg =0;
+		int pageno =2; //2개씩
+		
+		try {
+			con = new dbinfo().info();
+			String sql="select * from coupon order by cidx desc limit ?,?";
+			ps = con.prepareStatement(sql);
+			ps.setInt(1, startpg);
+			ps.setInt(2, pageno);
+			rs = ps.executeQuery();
+		}catch(Exception e) {
+			
+		}
+		return null;
+	}
+	
+	//1page당 데이터 2개씩
+	@GetMapping("/pay/coupon_list.do")
+	public String coupon_list(@RequestParam(value="",required=false)Integer page,Model m) throws Exception {
+		//System.out.println(page);//Integer 써서 파라미터가 없는 do만 실행했을 때 null뜬다 
+		
+		Connection con =null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		ResultSet rs2 = null; // 카운팅 전용
+		int pageno = 2; //데이터 2개씩
+		int startpg=0;
+		try {
+			
+			//페이징3단계
+			if(page==null || page==1) { //Integer면 null쓸 수 있고, int면 null 못 쓴다.
+				startpg=0;
+			}
+			else {
+				startpg=(page-1)* pageno;
+			}
+			
+			//페이징2단계
+			con = new dbinfo().info(); //dbinfo를 static으로 써놔서 이거 안 떴었다.
+			//데이터 총 갯수(전체갯수)
+			String count = "select count(*) as ctn from coupon"; //카운팅하는건 order by 필요없다
+			ps = con.prepareStatement(count);
+			rs2=ps.executeQuery();
+			rs2.next();
+			
+			m.addAttribute("startpg",startpg); //가공된 page번호
+			m.addAttribute("total",rs2.getString("ctn"));
+			
+			
+			//페이징1단계
+			String sql="select * from coupon order by cidx desc limit ?,?";
+			ps = con.prepareStatement(sql);
+			ps.setInt(1, startpg);
+			ps.setInt(2, pageno);
+			rs = ps.executeQuery();
+			//System.out.println(con);
+			
+			//dao가 없기 때문에 반복문으로 돌려서 찍어야됨.
+			
+			List<List<String>> all = new ArrayList<List<String>>();
+			while(rs.next()) {
+				List<String> al = new ArrayList<String>();
+				al.add(rs.getString(1)); //이거는 0부터쓰는거아니다
+				al.add(rs.getString(2));
+				al.add(rs.getString(3));
+				al.add(rs.getString(4));
+				al.add(rs.getString(5));
+				all.add(al);
+			}
+			//addAllAttributes:Object메서드 배열관련 객체를 차례대로 추가하는 방식
+			//addAllAttributes 단점 : 2차 배열시 JSP로 전달에 대한 문제가 발생함
+		
+			//System.out.println(all); //이거 2개씩 나오나 꼭 확인해야된다.
+			//배열 썼으니까 allAttribute쓸 수 있다!(여기서는 Attribute쓰기 힘들다.)
+			//m.addAllAttributes(Arrays.asList(all)); //원시배열을 1차배열로 집어 넣을 때 사용//여기서는 써봤자 출력 안됨
+			m.addAttribute("all",all); //allattributes로 출력하기에는 2차배열이여서 (값이 안에 있고 안에 또 있어서) 이걸로 출력해야됨
+			
+			
+		}catch(Exception e) {
+			System.out.println("DB연결 실패!!");
+		}finally {
+			rs.close();
+			rs2.close(); //rs2가 rs보다 먼저 닫히면 종종 에러나기때문에 rs를 먼저 닫자
+			ps.close();
+			con.close();
+		}
+		
+		return "/coupon_list";
+	}
+	
+	@PostMapping("/pay/pay3.do")
+	public String pay3(@ModelAttribute("payinfo") pay_dao dao, HttpServletRequest req) throws Exception{
+		//원래는 값이 안 넘어왔을 경우 거르는 조건문을 써야된다! (결제오류나면 여기서 값이 하나 빠진거다)
+		req.setAttribute("goodcode",dao.getGoodcode());	//상품코드
+		req.setAttribute("goodname",dao.getGoodname());	//상품명
+		req.setAttribute("goodea",dao.getGoodea());	//상품개수
+		req.setAttribute("goodprice",dao.getGoodprice());	//상품가격
+		req.setAttribute("price",dao.getPrice());	//결제금액
+		req.setAttribute("buyername",dao.getBuyername());	//결제자 이름
+		req.setAttribute("buyertel",dao.getBuyertel());	//결제자 연락처
+		req.setAttribute("buyeremail",dao.getBuyeremail());	//결제자 이메일
+		req.setAttribute("rec_post",dao.getRec_post());	//우편번호
+		req.setAttribute("rec_way",dao.getRec_way());	//도로명
+		req.setAttribute("rec_addr",dao.getRec_addr());	//상세주소
+		req.setAttribute("gopaymethod",dao.getGopaymethod());	//결제방식
+		
+		
+		return "/pay3";
+	}
+	
+	@PostMapping("/pay/pay2.do")
+	public String pay2(@ModelAttribute("product") pay_dao dao, Model m) throws Exception {
+		List<String> as = new ArrayList<String>(); 
+		as.add(dao.getProduct_code());
+		as.add(dao.getProduct_nm());
+		as.add(dao.getProduct_money());
+		as.add(dao.getProduct_ea());
+		as.add(dao.getPrice());
+		/*//List<String>대신 Collection<String>으로 받아서 찍을 수 있다.
+		Collection<String> cl = new ArrayList<String>();
+		cl.add(null);
+		*/
+		/*//이런 방식으로도 찍을 수 있다.
+		Map<String, String> mp =new HashMap<String,String>();
+		mp.put("pdnm", dao.getProduct_code());
+		m.addAllAttributes(mp);//=>이렇게도 찍을 수 있다 : m.addAllAttributes(Arrays.asList(mp));
+		*/
+		
+		//m.addAttribute("as","홍길동"); 처음부터 키를 만들어서 준다.
+		
+		//addAllAttributes: key가 없음, 단 배열명 + 자료형을 기반으로 jsp 출력
+		m.addAllAttributes(Arrays.asList(as)); //jsp에서 출력을 하기 위해서 get(),원시배열[]로 출력이 가능함//배열 써서 allAttributes사용 가능 한거다, 여기서는 키 쓰면 에러 남
+		
+		return "/pay2"; //WEB-INF/views // "pay2" 로 적어도 됨
+	}
+}
