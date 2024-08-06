@@ -22,7 +22,7 @@ public class abadmin_controller{
 	
 	PrintWriter pw= null;
 	
-	ㄴㄴ
+	
 	//리턴메소드에 스크립트 절대 사용 X
 	@GetMapping("/admin/admin_master_list.do")
 	public String admin_list(Model m,HttpServletResponse res) throws Exception{
