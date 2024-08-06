@@ -19,36 +19,26 @@ public class abad_module extends passwd_sh{
 	
 	@Resource(name="template2")
 	private SqlSessionTemplate tm2;
-	
-	/*
+
 	//관리자 승인,해제
-	public abad_dao adY_up(abad_dao abdao,String adid){
+	public int adYN_up(int adidx){	
 		
-		Map<String,String> keycode=new HashMap<String, String>();
+		System.out.println(adidx);
+		
+		Map<Object, Object> keycode= new HashMap<Object, Object>();
 		keycode.put("part", "2");
-		keycode.put("adid", adid);
-		
-		abad_dao abdao=tm2.update("abadminDB.adYN_update",keycode);
-		if(abdao.getAdYN().equals("Y")) {
-			
-			abdao.setAdYN("N");
-			return abdao;
+		keycode.put("adidx", adidx);
+	
+		abad_dao abdao=tm2.selectOne("abadminDB.adin_select",keycode);
+		if(abdao.getAdYN().equals("승인")) {
+			abdao.setAdYN("미승인");
+		}else if(abdao.getAdYN().equals("미승인")) {
+			abdao.setAdYN("승인");
+		}else {
+			return 0;
 		}
-	return null;
+		 return tm2.update("abadminDB.adYN_update", abdao);
 	}
-	public abad_dao adN_up(String adid){
-		Map<String,String> keycode=new HashMap<String, String>();
-		keycode.put("part", "1");
-		keycode.put("adid", adid);
-		abad_dao abdao=tm2.update("abadminDB.adYN_update",keycode);
-		
-		if(abdao.getAdYN().equals("N")) {
-			abdao.setAdYN("Y");
-			return abdao;
-		}
-	return null;
-	}
-	*/
 	
 	//관리자 신청 게시물
 	public List<abad_dao> adin_data(){

@@ -9,6 +9,9 @@ select * from admininfo
 <when test="part==1">
 where adid=#{adid} and adpw=#{adpw} and adYN='승인' 
 </when>
+<when test="part==2">
+where adidx=#{adidx}
+</when>
 <otherwise>
 order by adidx desc
 </otherwise>
@@ -16,7 +19,7 @@ order by adidx desc
 </select>
 
 
-<update id="adYN_update" parameterType="object">
+<update id="adYN_update" parameterType="abaddao">
 update admininfo set adYN=#{adYN} where adidx=#{adidx}
 </update>
 

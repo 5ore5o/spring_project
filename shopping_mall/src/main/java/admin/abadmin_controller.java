@@ -1,7 +1,6 @@
 package admin;
 
 import java.io.PrintWriter;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -21,34 +20,38 @@ public class abadmin_controller{
 	private abad_module am;
 	
 	PrintWriter pw= null;
-	/*
+	
 	@PostMapping("/admin/YN_up.do")
-	public String YN_up(HttpServletResponse res,String adid,abad_dao abado,String adYN) throws Exception {
+	public String YN_up(HttpServletResponse res,abad_dao abdao,int adidx) throws Exception {
 		res.setContentType("text/html;charset=utf-8");
 		this.pw=res.getWriter();
 		try {
-			if(adYN.equals("N")) {
-				int abY=am.adY_up(abado,adid);
-				this.pw.write("<script>"
-						+ "location.href='./admin_master_list.do';"
+			int adYNup=am.adYN_up(adidx);
+			System.out.println(abdao.getAdYN());
+			System.out.println(abdao.getAdidx());
+			if(adYNup > 0) {
+				this.pw.print("<script>"
+						+ "alert('정상적으로 수정 되었습니다.');"
+						+ "location.href='/admin/admin_master_list.do';"
 						+ "</script>");
 			}
-			else if(adYN.equals("Y")) {
-				int abN=am.adN_up(abado,adid);
-				this.pw.write("<script>"
-						+ "location.href='./admin_master_list.do';"
+			else {
+				this.pw.print("<script>"
+						+ "alert('데이터 오류때문에 수정되지 않았습니다');"
+						+ "location.href='/admin/admin_master_list.do';"
 						+ "</script>");
 			}
 		}catch(Exception e) {
-			this.pw.write("<script>"
-					+ "alert('데이터 오류가 발생해 수정되지 않았습니다.');"
-					+ "location.href='./admin_master_list.do';"
-					+ "</script>");
+				this.pw.print("<script>"
+						+ "alert('DB오류로 인해 수정되지 않았습니다');"
+						+ "location.href='/admin/admin_master_list.do';"
+						+ "</script>");
+
 		}
 		this.pw.close();
 		return null;
 	}
-	*/
+	
 	
 	//리턴메소드에 스크립트 절대 사용 X
 	@GetMapping("/admin/admin_master_list.do")

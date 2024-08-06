@@ -38,7 +38,10 @@ String adYN=(String)session.getAttribute("adYN");
         <li>신규 등록된 관리자가 없습니다.</li>
     </ol>
     </cr:if>
-    <cr:forEach var="listdata" items="${adin_data}">
+    <cr:forEach var="listdata" items="${adin_data}" varStatus="status">
+    <form id="adminfrm3">
+    <input type="hidden" name="adYN" value="${listdata.adYN}">
+    <input type="hidden" name="adidx" value="${listdata.adidx}">
     <ol class="new_admin_lists2">
         <li>${listdata.adidx}</li>
         <li>${listdata.adname}</li>
@@ -47,18 +50,17 @@ String adYN=(String)session.getAttribute("adYN");
         <li>${listdata.ademail}</li>
         <li>${listdata.addepart}</li>
         <li>${listdata.adposition}</li>
-        <li>2024-07-29</li>
+        <li>${listdata.addate}</li>
         <li>
-        <form id="adminfrm3">
-     	<cr:if test="${listdata.adYN!=null&&listdata.adYN=='미승인'}">
-            <input type="button" value="${listdata.adYN}" class="new_addbtn1" title="승인" onclick="adok()">
+     	<cr:if test="${listdata.adYN!=null&&listdata.adYN.equals('미승인')}">
+            <input type="button" value="승인" class="new_addbtn1" title="승인" onclick="adok()">
         </cr:if>
-     	<cr:if test="${listdata.adYN!=null&&listdata.adYN=='승인'}">
-            <input type="button" value="${listdata.adYN}" class="new_addbtn2" title="미승인" onclick="adno()">
+     	<cr:if test="${listdata.adYN!=null&&listdata.adYN.equals('승인')}">
+            <input type="button" value="미승인" class="new_addbtn2" title="미승인" onclick="adno()">
         </cr:if>
-        </form>
         </li>
     </ol>
+   </form>
     </cr:forEach>
 </section>
 <section></section>
@@ -66,21 +68,23 @@ String adYN=(String)session.getAttribute("adYN");
 </main>
 <script>
 function adok(){
+	var form=document.getElementById("adminfrm3");
 	if(confirm("관리자 승인을 진행 하시겠습니까?")){
 		alert("관리자 승인되었습니다.");
-		adminfrm3.method="post";
-		adminfrm3.action="./YN_up.do";
-		adminfrm3.submit();
+		form.method="post";
+		form.action="./YN_up.do";
+		form.submit();
 		}else{
 			alert("승인이 취소되었습니다.");
 		}
 }
 function adno(){
+	var form=document.getElementById("adminfrm3");
 	if(confirm("관리자 승인해제 하시겠습니까?")){
 		alert("승인해제 되었습니다.");
-		adminfrm3.method="post";
-		adminfrm3.action="./YN_up.do";
-		adminfrm3.submit();
+		form.method="post";
+		form.action="./YN_up.do";
+		form.submit();
 		}else{
 			alert("해제가 취소되었습니다.");
 		}
