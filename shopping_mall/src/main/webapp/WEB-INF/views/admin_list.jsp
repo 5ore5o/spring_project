@@ -48,10 +48,10 @@ String adid=(String)session.getAttribute("adid");
         <li>${listdata.adposition}</li>
         <li>2024-07-29</li>
         <li>
-     	<cr:if test="${listdata.adYN!=null&&listdata.adYN=='Y'}">
+     	<cr:if test="${listdata.adYN!=null&&listdata.adYN=='N'}">
             <input type="button" value="승인" class="new_addbtn1" title="승인" onclick="adok()">
         </cr:if>
-     	<cr:if test="${listdata.adYN!=null&&listdata.adYN=='N'}">
+     	<cr:if test="${listdata.adYN!=null&&listdata.adYN=='Y'}">
             <input type="button" value="미승인" class="new_addbtn2" title="미승인" onclick="adno()">
         </cr:if>
         </li>
@@ -62,6 +62,10 @@ String adid=(String)session.getAttribute("adid");
 <section></section>
 </main>
 <script>
-
-
+function adok(){
+	
+}
+function adno(){
+	
+}
 </script>
