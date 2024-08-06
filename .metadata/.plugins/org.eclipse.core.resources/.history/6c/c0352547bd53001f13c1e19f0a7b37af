@@ -26,7 +26,7 @@ public class abad_module extends passwd_sh{
 		List<abad_dao> adin= new ArrayList<abad_dao>();
 		adin=tm2.selectList("abadminDB.adli_select");
 		return adin;
-	}
+	}ㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㅁㅇㅁㅇㅁㄴ
 	
 	//로그인 확인
 	public abad_dao abad_loginck(String adid,String adpw,HttpSession se) {

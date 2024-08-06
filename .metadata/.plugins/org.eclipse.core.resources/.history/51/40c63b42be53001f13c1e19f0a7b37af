@@ -20,7 +20,7 @@ public class abad_module extends passwd_sh{
 	@Resource(name="template2")
 	private SqlSessionTemplate tm2;
 	
-	
+	String a= "홍";
 	//관리자 신청 게시물
 	public List<abad_dao> adin_data(){
 		List<abad_dao> adin= new ArrayList<abad_dao>();
