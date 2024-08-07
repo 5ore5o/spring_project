@@ -1,0 +1,13 @@
+package admin;
+
+import lombok.Getter;
+import lombok.Setter;
+
+//홈페이지 가입환경 설정
+@Getter
+@Setter
+public class adset_dao {
+
+	int hi_point,hidx,pb_min,pb_max,de_price;
+	String hi_title,hi_ademail,hi_use,hi_level,hi_date;
+}

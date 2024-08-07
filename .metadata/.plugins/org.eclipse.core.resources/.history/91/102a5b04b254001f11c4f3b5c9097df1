@@ -1,0 +1,13 @@
+package admin;
+
+import lombok.Getter;
+import lombok.Setter;
+
+//홈페이지 기본환경 설정
+@Getter
+@Setter
+public class hs_dao {
+int hsidx;
+String hs_com,hs_bnum,hs_kname,hs_knum,hs_osnum,hs_addnum,hs_postal,hs_badd,hs_adname,hs_ademail,hs_date;
+	
+}

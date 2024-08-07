@@ -1,0 +1,13 @@
+package admin;
+
+import lombok.Getter;
+import lombok.Setter;
+
+//결제 기본환경 설정
+@Getter
+@Setter
+public class pb_dao {
+
+	int pbidx,pb_min,pb_max,de_price;
+	String pb_bk,pb_bknum,pb_card,pb_phone,pb_bv,pb_cash,de_name,de_date,pb_date;
+}

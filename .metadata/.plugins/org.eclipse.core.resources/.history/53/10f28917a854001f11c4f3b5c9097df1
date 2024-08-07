@@ -1,0 +1,11 @@
+package admin;
+
+import lombok.Getter;
+import lombok.Setter;
+
+//결제 기본환경 설정
+@Getter
+@Setter
+public class pb_dao {
+
+}
