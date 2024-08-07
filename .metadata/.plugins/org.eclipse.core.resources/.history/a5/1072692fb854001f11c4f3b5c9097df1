@@ -1,0 +1,14 @@
+export class homeset{
+
+save(){
+	
+}
+cancle(){
+	if(confirm("저장을 취소하겠습니까?")){
+	alert("등록이 취소 되었습니다. 메인화면으로 넘어갑니다.");
+	location.href="./";
+	}else{
+		alert("등록 취소가 취소되었습니다.");
+	}
+}	
+}

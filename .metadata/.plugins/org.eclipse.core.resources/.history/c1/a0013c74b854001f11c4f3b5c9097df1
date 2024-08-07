@@ -9,15 +9,15 @@ String adYN=(String)session.getAttribute("adYN");
 <nav class="navcss">
     <div class="nav_div">
         <ol>
-        	<%if("master".equals(adid)){ %>
+        	<%if("master".equals(adid)&&adid!=null){ %>
             <li title="쇼핑몰 상품관리"><a href="./admin_list.do">쇼핑몰 관리자 리스트</a></li>
-            <%}%>
-            <%if(adid !=null){ %>
+            <%}else{
+            response.sendRedirect("./");
+            }%>
             <li title="쇼핑몰 회원관리">쇼핑몰 회원관리</li>
             <li title="쇼핑몰 상품관리">쇼핑몰 상품관리</li>
 			<li title="쇼핑몰 기본설정"><a href="./admin_siteinfo.do">쇼핑몰 기본설정</a></li>
             <li title="쇼핑몰 공지사항">쇼핑몰 공지사항</li>
-            <%} %>
         </ol>
     </div>
 
@@ -190,7 +190,7 @@ String adYN=(String)session.getAttribute("adYN");
 </main>
 <%Date today2 = new Date(); %>
 <script type="module">
-import {homeset}from "./js/adset.js?v=<%=today2%>";
+import {login}from "./js/adset.js?v=<%=today2%>";
 
 document.querySelector("#set_save").addEventListener("click",function(){
 new homeset().save();
