@@ -35,13 +35,19 @@
 	<resources mapping="/admin/js/external/**" location="/admin/js/external/"/>
 	<resources mapping="/admin/js/images/**" location="/admin/js/images/"/>
 	
+	<!-- 개인프로젝트 쇼핑몰 -->
+	<resources mapping="/mallpage/**" location="/mallpage/"/>
+	<resources mapping="/mallpage/css/**" location="/mallpage/css/"/>
+	<resources mapping="/mallpage/images/**" location="/mallpage/images/"/>
+	<resources mapping="/mallpage/product/**" location="/mallpage/product/"/>
+	
 	<!-- Resolves views selected for rendering by @Controllers to .jsp resources in the /WEB-INF/views directory -->
 	<beans:bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<beans:property name="prefix" value="/WEB-INF/views/" />
 		<beans:property name="suffix" value=".jsp" />
 	</beans:bean>
 	
-	<context:component-scan base-package="com.abshop.www,admin,pay" />
+	<context:component-scan base-package="com.abshop.www,admin,pay,mall" />
 	
 	<!-- File :이거 안 쓰면 파일 첨부 못한다 -->
 	<beans:bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">

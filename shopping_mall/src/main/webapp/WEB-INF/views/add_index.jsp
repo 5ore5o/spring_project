@@ -18,7 +18,7 @@
             </span>
             <span>
                 <ol class="admin_info">
-                    <li title="신규 관리자 등록요청"><a href="/admin/admin_add.do">신규 관리자 등록요청</a></li>
+                    <li title="신규 관리자 등록요청"><a href="/admin/add_master.do">신규 관리자 등록요청</a></li>
                     <li title="아이디/패스워드 찾기">아이디/패스워드 찾기</li>
                 </ol>                
             </span>

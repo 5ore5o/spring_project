@@ -23,11 +23,10 @@ public class abad_module extends passwd_sh{
 	//관리자 승인,해제
 	public int adYN_up(int adidx){	
 		
-		System.out.println(adidx);
-		
 		Map<Object, Object> keycode= new HashMap<Object, Object>();
 		keycode.put("part", "2");
-		keycode.put("adidx", adidx);
+		keycode.put("adi"
+				+ "dx", adidx);
 	
 		abad_dao abdao=tm2.selectOne("abadminDB.adin_select",keycode);
 		if(abdao.getAdYN().equals("승인")) {
