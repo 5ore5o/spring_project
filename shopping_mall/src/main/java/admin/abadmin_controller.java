@@ -4,6 +4,8 @@ import java.io.PrintWriter;
 import java.util.List;
 
 import javax.annotation.Resource;
+import javax.servlet.RequestDispatcher;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
@@ -59,7 +61,7 @@ public class abadmin_controller{
 	
 	//리턴메소드에 스크립트 절대 사용 X
 	@GetMapping("/admin/admin_list.do")
-	public String admin_list(Model m,HttpServletResponse res) throws Exception{
+	public String admin_list(Model m,HttpServletResponse res,HttpServletRequest req,String adid) throws Exception{
 		res.setContentType("text/html;charset=utf-8");
 		this.pw=res.getWriter();
 		
@@ -71,6 +73,14 @@ public class abadmin_controller{
 					+ "alert('데이터 에러가 나서 정보를 불러오지 못합니다.');"
 					+ "</script>");
 			this.pw.close();	
+		}
+		
+		if(adid=="null"|| "master"!=(adid)) {
+			System.out.println(adid);
+			res.sendRedirect("./");
+		}else {
+		RequestDispatcher rd= req.getRequestDispatcher("/admin/admin_list.do");
+		rd.forward(req, res);
 		}
 		return "admin_list";
 	}
