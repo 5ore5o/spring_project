@@ -1,17 +1,19 @@
+<%@page import="java.util.Date"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<% Date today=new Date(); %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>관리자 페이지</title>
     <link rel="stylesheet" type="text/css" href="./css/basic.css">
-    <link rel="stylesheet" type="text/css" href="./css/mainlogin.css?v=3">
+    <link rel="stylesheet" type="text/css" href="./css/mainlogin.css?v=<%=today %>">
     <link rel="icon" href="./img/logo.png" sizes="128x128">
     <link rel="icon" href="./img/logo.png" sizes="64x64">
     <link rel="icon" href="./img/logo.png" sizes="32x32">
     <link rel="icon" href="./img/logo.png" sizes="16x16">
-<script src="./js/jquery.js?v=2"></script>
+<script src="./js/jquery.js?v=<%=today %>"></script>
 </head>
 <body>
 <!-- 상단 시작 -->

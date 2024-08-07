@@ -21,6 +21,12 @@ public class abadmin_controller{
 	
 	PrintWriter pw= null;
 	
+	@GetMapping("/admin/admin_siteinfo.do")
+	public String sitein() {
+		
+		return "admin_siteinfo";
+	}
+	
 	@PostMapping("/admin/YN_up.do")
 	public String YN_up(HttpServletResponse res,abad_dao abdao,int adidx) throws Exception {
 		res.setContentType("text/html;charset=utf-8");
@@ -155,14 +161,14 @@ public class abadmin_controller{
 		return "add_master";
 	}
 	//로그아웃페이지
-	@GetMapping("/admin/logout.do")
+	@GetMapping("/admin/admin_logout.do")
 	public String logout(HttpSession se,HttpServletResponse res) throws Exception {
 		se.invalidate();
 		res.setContentType("text/html;charset=utf-8");
 		this.pw=res.getWriter();
 		this.pw.print("<script>"
 				+ "alert('로그아웃 되었습니다.');"
-				+ "window.location.href='./';"
+				+ "location.href='./';"
 				+ "</script>");
 		this.pw.close();
 		return "logout";

@@ -19,7 +19,7 @@ public class abad_module extends passwd_sh{
 	
 	@Resource(name="template2")
 	private SqlSessionTemplate tm2;
-
+	
 	//관리자 승인,해제
 	public int adYN_up(int adidx){	
 		
