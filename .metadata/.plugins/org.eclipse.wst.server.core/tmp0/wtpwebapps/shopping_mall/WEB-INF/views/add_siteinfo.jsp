@@ -24,8 +24,7 @@ String adYN=(String)session.getAttribute("adYN");
 </nav>
 <main class="maincss">
 <section>
-<form id="adhomeset">
-<input type="hidden" name="sidx">    
+<form id="adhomeset">   
     <p>홈페이지 가입환경 설정</p>
 <div class="subpage_view">
 <ul class="info_form">
@@ -43,8 +42,8 @@ String adYN=(String)session.getAttribute("adYN");
 <ul class="info_form">
     <li>포인트 사용 유/무</li>
     <li class="checkcss">
-        <em><label><input type="radio" class="ckclass" name="hi_use">포인트 사용</label></em> 
-        <em><label><input type="radio" class="ckclass" name="hi_use" checked>포인트 미사용</label></em>
+        <em><label><input type="radio" class="ckclass" name="hi_use" value="Y">포인트 사용</label></em> 
+        <em><label><input type="radio" class="ckclass" name="hi_use" value="N" checked>포인트 미사용</label></em>
     </li>
 </ul>
 <ul class="info_form2" style="border-bottom:1px solid rgb(81, 61, 61);">
@@ -120,28 +119,28 @@ String adYN=(String)session.getAttribute("adYN");
     </li>
     <li>은행계좌번호</li>
     <li>
-        <input type="text" class="in_form1" name="pb_bknum"> 
+        <input type="text" class="in_form1" name="pb_bknum" placeholder="-포함해주세요." maxlength="17"> 
     </li>
 </ul>
 <ul class="info_form">
     <li>신용카드 결제 사용</li>
     <li class="checkcss">
-        <em><label><input type="radio" class="ckclass" name="pb_card"> 사용</label></em> 
-        <em><label><input type="radio" class="ckclass" name="pb_card" checked> 미사용</label></em> ※ 해당 PG사가 있을 경우 사용으로 변경합니다.
+        <em><label><input type="radio" class="ckclass" name="pb_card" value="Y"> 사용</label></em> 
+        <em><label><input type="radio" class="ckclass" name="pb_card" value="N" checked> 미사용</label></em> ※ 해당 PG사가 있을 경우 사용으로 변경합니다.
     </li>
 </ul>
 <ul class="info_form">
     <li>휴대폰 결제 사용</li>
     <li class="checkcss">
-        <em><label><input type="radio" class="ckclass" name="pb_phone"> 사용</label></em> 
-        <em><label><input type="radio" class="ckclass" name="pb_phone" checked> 미사용</label></em> ※ 주문시 휴대폰 결제를 가능하게 할 것인지를 설정합니다.
+        <em><label><input type="radio" class="ckclass" name="pb_phone" value="Y"> 사용</label></em> 
+        <em><label><input type="radio" class="ckclass" name="pb_phone" value="N" checked> 미사용</label></em> ※ 주문시 휴대폰 결제를 가능하게 할 것인지를 설정합니다.
     </li>
 </ul>
 <ul class="info_form">
     <li>도서상품권 결제사용</li>
     <li class="checkcss">
-        <em><label><input type="radio" class="ckclass" name="pb_bv"> 사용</label></em> 
-        <em><label><input type="radio" class="ckclass" name="pb_bv" checked> 미사용</label></em> ※ 도서상품권 결제만 적용이 되며, 그 외에 상품권은 결제 되지 않습니다.
+        <em><label><input type="radio" class="ckclass" name="pb_bv" value="Y"> 사용</label></em> 
+        <em><label><input type="radio" class="ckclass" name="pb_bv" value="N" checked> 미사용</label></em> ※ 도서상품권 결제만 적용이 되며, 그 외에 상품권은 결제 되지 않습니다.
     </li>
 </ul>
 <ul class="info_form2">
@@ -157,8 +156,8 @@ String adYN=(String)session.getAttribute("adYN");
 <ul class="info_form">
     <li>현금 영수증 발급사용</li>
     <li class="checkcss">
-        <em><label><input type="radio" class="ckclass" name="pb_cash"> 사용</label></em> 
-        <em><label><input type="radio" class="ckclass" name="pb_cash" checked> 미사용</label></em> ※ 현금영수증 관련 사항은 PG사 가입이 되었을 경우 사용가능 합니다.
+        <em><label><input type="radio" class="ckclass" name="pb_cash" value="Y"> 사용</label></em> 
+        <em><label><input type="radio" class="ckclass" name="pb_cash" value="N" checked> 미사용</label></em> ※ 현금영수증 관련 사항은 PG사 가입이 되었을 경우 사용가능 합니다.
     </li>
 </ul>
 <ul class="info_form2">
@@ -174,8 +173,8 @@ String adYN=(String)session.getAttribute("adYN");
 <ul class="info_form" style="border-bottom:1px solid rgb(81, 61, 61);">
     <li>희망배송일</li>
     <li class="checkcss">
-        <em><label><input type="radio" class="ckclass" name="de_date"> 사용</label></em> 
-        <em><label><input type="radio" class="ckclass" name="de_date" checked> 미사용</label></em> ※ 희망배송일 사용시 사용자가 직접 설정 할 수 있습니다.
+        <em><label><input type="radio" class="ckclass" name="de_date" value="Y"> 사용</label></em> 
+        <em><label><input type="radio" class="ckclass" name="de_date" value="N" checked> 미사용</label></em> ※ 희망배송일 사용시 사용자가 직접 설정 할 수 있습니다.
     </li>
 </ul>
 </div>

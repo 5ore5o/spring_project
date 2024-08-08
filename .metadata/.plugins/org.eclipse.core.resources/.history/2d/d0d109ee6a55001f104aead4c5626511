@@ -1,0 +1,19 @@
+export class homeset{
+
+save(){
+	if(adhomeset.hi_title.value==""||adhomeset.hi_ademail.value==""||adhomeset.hi_point.value==""||adhomeset.hi_level.value==""){
+		alert("홈페이지 가입환경 설정을 전부다 적어주세요.");
+	}
+	else if(adhomeset.hs_com.value==""||adhomeset.hi_title.value==""||adhomeset.hi_title.value==""){
+		
+	}
+}
+cancle(){
+	if(confirm("저장을 취소하겠습니까?")){
+	alert("저장이 취소 되었습니다.");
+	location.href="./admin_siteinfo.do";
+	}else{
+		alert("저장 취소가 취소되었습니다.");
+	}
+}	
+}
