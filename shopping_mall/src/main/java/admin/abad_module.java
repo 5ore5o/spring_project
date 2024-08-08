@@ -20,13 +20,13 @@ public class abad_module extends passwd_sh{
 	@Resource(name="template2")
 	private SqlSessionTemplate tm2;
 	
+	
 	//관리자 승인,해제
 	public int adYN_up(int adidx){	
 		
 		Map<Object, Object> keycode= new HashMap<Object, Object>();
 		keycode.put("part", "2");
-		keycode.put("adi"
-				+ "dx", adidx);
+		keycode.put("adidx", adidx);
 	
 		abad_dao abdao=tm2.selectOne("abadminDB.adin_select",keycode);
 		if(abdao.getAdYN().equals("승인")) {
@@ -76,6 +76,11 @@ public class abad_module extends passwd_sh{
 		return 0;
 	}
 	
+	//쇼핑몰 설정 저장
+	public int homein(adset_dao adsetdao) {
+		int homeset_result=tm2.insert("abadminDB.home_in",adsetdao);
+		return homeset_result;
+	}
 	//데이터 insert
 	public int abad_insert(abad_dao abdao,String adpw) {	
 		String sh2_passwd=this.sh2_making(adpw);

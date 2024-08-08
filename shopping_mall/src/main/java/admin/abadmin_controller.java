@@ -23,11 +23,7 @@ public class abadmin_controller{
 	
 	PrintWriter pw= null;
 	
-	@GetMapping("/admin/admin_siteinfo.do")
-	public String sitein() {
-		
-		return "admin_siteinfo";
-	}
+	
 	
 	@PostMapping("/admin/YN_up.do")
 	public String YN_up(HttpServletResponse res,abad_dao abdao,int adidx) throws Exception {
@@ -61,9 +57,10 @@ public class abadmin_controller{
 	
 	//리턴메소드에 스크립트 절대 사용 X
 	@GetMapping("/admin/admin_list.do")
-	public String admin_list(Model m,HttpServletResponse res,HttpServletRequest req,String adid) throws Exception{
+	public String admin_list(Model m,HttpServletResponse res,HttpServletRequest req,HttpSession se) throws Exception{
 		res.setContentType("text/html;charset=utf-8");
 		this.pw=res.getWriter();
+		String adid=(String)se.getAttribute("adid");
 		
 		try {
 			List<abad_dao> adin_data = am.adin_data();
@@ -72,15 +69,13 @@ public class abadmin_controller{
 			this.pw.print("<script>"
 					+ "alert('데이터 에러가 나서 정보를 불러오지 못합니다.');"
 					+ "</script>");
-			this.pw.close();	
+			this.pw.close();
 		}
 		
-		if(adid=="null"|| "master"!=(adid)) {
-			System.out.println(adid);
-			res.sendRedirect("./");
-		}else {
-		RequestDispatcher rd= req.getRequestDispatcher("/admin/admin_list.do");
-		rd.forward(req, res);
+		if(adid==null|| ! adid.equals("master")) {
+			RequestDispatcher rd=req.getRequestDispatcher("./error.jsp");
+			rd.forward(req, res);
+			return null;
 		}
 		return "admin_list";
 	}
@@ -142,6 +137,30 @@ public class abadmin_controller{
 	return null;
 	} 
 	
+	//쇼핑몰 설정저장
+	@PostMapping("/admin/homesave.do")
+	public String homesave(HttpServletResponse res,adset_dao adsetdao)throws Exception{
+		res.setContentType("text/html;charset=utf-8");
+		this.pw= res.getWriter();
+		try {
+			int homeset_result= am.homein(adsetdao);
+			if(homeset_result> 0) {
+				this.pw.print("<script>"
+						+ "alert('정상적으로 등록 완료 되었습니다.');"
+						+ "location.href='/admin/admin_siteinfo.do';"
+						+ "</script>");
+			}
+		}catch(Exception e) {
+			this.pw.print("<script>"
+					+ "alert('DB 오류로 인하여 등록되지 않았습니다.');"
+					+ "history.go(-1);"
+					+ "</script>");
+			System.out.println(e);
+		}
+		this.pw.close();
+		return null;
+	}
+	
 	@PostMapping("/admin/admin_insert.do")
 	public String admin_insert(HttpServletResponse res,String adpw,abad_dao abdao) throws Exception {
 		res.setContentType("text/html;charset=utf-8");
@@ -151,7 +170,7 @@ public class abadmin_controller{
 			if(abin_result > 0) {
 				this.pw.print("<script>"
 						+ "alert('정상적으로 등록 완료 되었습니다.');"
-						+ "location.href='./admin_index.do';"
+						+ "location.href='./';"
 						+ "</script>");
 			}
 		}catch(Exception e) {
@@ -165,11 +184,6 @@ public class abadmin_controller{
 		return null;
 	}
 
-	//신규 관리자 등록페이지
-	@GetMapping("/admin/add_master.do")
-	public String addad(){
-		return "add_master";
-	}
 	//로그아웃페이지
 	@GetMapping("/admin/admin_logout.do")
 	public String logout(HttpSession se,HttpServletResponse res) throws Exception {
@@ -182,6 +196,16 @@ public class abadmin_controller{
 				+ "</script>");
 		this.pw.close();
 		return "logout";
+	}
+	//쇼핑몰 기본설정 페이지
+	@GetMapping("/admin/admin_siteinfo.do")
+	public String homeset(){
+		return "admin_siteinfo";
+	}
+	//신규 관리자 등록페이지
+	@GetMapping("/admin/add_master.do")
+	public String addad(){
+		return "add_master";
 	}
 	//메인페이지
 	@GetMapping("/admin")
