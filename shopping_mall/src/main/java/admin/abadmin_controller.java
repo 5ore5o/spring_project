@@ -197,6 +197,11 @@ public class abadmin_controller{
 		this.pw.close();
 		return "logout";
 	}
+	//쇼핑몰 상품관리 페이지
+	@GetMapping("/admin/product_list.do")
+	public String productlist(){
+		return "product_list";
+	}
 	//쇼핑몰 기본설정 페이지
 	@GetMapping("/admin/admin_siteinfo.do")
 	public String homeset(){

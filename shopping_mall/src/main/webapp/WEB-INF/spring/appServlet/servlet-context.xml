@@ -37,7 +37,6 @@
 	
 	<!-- 개인프로젝트 쇼핑몰 -->
 	<resources mapping="/mallpage/**" location="/mallpage/"/>
-	<resources mapping="/mallpage/css/**" location="/mallpage/css/"/>
 	<resources mapping="/mallpage/images/**" location="/mallpage/images/"/>
 	<resources mapping="/mallpage/product/**" location="/mallpage/product/"/>
 	
