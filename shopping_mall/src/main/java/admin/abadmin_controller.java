@@ -197,6 +197,21 @@ public class abadmin_controller{
 		this.pw.close();
 		return "logout";
 	}
+	//카테고리 등록 페이지
+	@GetMapping("/admin/cate_write.do")
+	public String catewrite() {
+		return "cate_write";
+	}
+	//카테고리 관리 페이지
+	@GetMapping("/admin/cate_list.do")
+	public String catelist() {
+		return "cate_list";
+	}
+	//신규 상품등록 페이지
+	@GetMapping("/admin/product_write.do")
+	public String productwriter() {
+		return "product_write";
+	}
 	//쇼핑몰 상품관리 페이지
 	@GetMapping("/admin/product_list.do")
 	public String productlist(){

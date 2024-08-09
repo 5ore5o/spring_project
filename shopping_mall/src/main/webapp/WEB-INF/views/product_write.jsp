@@ -8,7 +8,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>관리자 등록 페이지</title>
+    <title>상품 등록 페이지</title>
     <link rel="stylesheet" type="text/css" href="./css/basic.css">
     <link rel="stylesheet" type="text/css" href="./css/login.css?v=<%=today %>">
     <link rel="stylesheet" type="text/css" href="./css/main.css">
@@ -24,7 +24,7 @@
 <%@include file="./header_login.jsp" %>
 <!-- 상단 끝 -->
 <!-- 중단 시작 -->
-<%@include file="./pr_list.jsp" %>
+<%@include file="./pr_wr.jsp" %>
 <!-- 중단 끝 -->
 <!-- 푸터 시작 -->
 <%@include file="./footer_login.jsp" %>
