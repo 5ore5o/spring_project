@@ -82,9 +82,22 @@ String adYN=(String)session.getAttribute("adYN");
 <div class="subpage_view4">
     <input type="button" value="선택상품 삭제" title="선택상품 삭제" class="p_button">
     <span style="float: right;">
-    <input type="button" value="신규상품 등록" title="신규상품 등록" class="p_button p_button_color1">
-    <input type="button" value="카테고리 등록" title="카테고리 등록" class="p_button p_button_color2">
+    <input type="button" value="신규상품 등록" title="신규상품 등록" class="p_button p_button_color1" id="pd_wr">
+    <input type="button" value="카테고리 등록" title="카테고리 등록" class="p_button p_button_color2" id="ca_li">
     </span>
 </div>
 </section>
 </main>
+<% Date pdtoday=new Date(); %>
+<script type="module">
+import {pdset}from "./js/pd_ca.js?v=<%=pdtoday%>";
+
+document.querySelector("#pd_wr").addEventListener("click",function(){
+new pdset().pdwr();
+});
+
+document.querySelector("#ca_li").addEventListener("click",function(){
+new pdset().cali();
+});
+
+</script>
