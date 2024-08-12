@@ -13,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 public class abadmin_controller{
@@ -228,7 +229,7 @@ public class abadmin_controller{
 		return "add_master";
 	}
 	//메인페이지
-	@GetMapping("/admin")
+	@GetMapping("/admin/index.do")
 	public String index(){
 	return "index";
 	}
