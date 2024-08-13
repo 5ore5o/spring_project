@@ -229,7 +229,7 @@ public class abadmin_controller{
 		return "add_master";
 	}
 	//메인페이지
-	@GetMapping("/admin/index.do")
+	@GetMapping("/admin/")
 	public String index(){
 	return "index";
 	}
