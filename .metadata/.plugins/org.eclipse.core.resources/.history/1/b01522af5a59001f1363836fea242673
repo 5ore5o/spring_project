@@ -23,8 +23,7 @@ String adYN=(String)session.getAttribute("adYN");
 </nav>
 <main class="maincss">
 <section>
-<form id="pd_frm" enctype="multipart/form-data">
-<input type="hidden" name="pd_idx">
+<form id="pd_frm">
 <p>상품 등록 페이지</p>
 <div class="product_insert">
     <ul>
@@ -109,11 +108,11 @@ String adYN=(String)session.getAttribute("adYN");
             <span class="help_text">※ 상품 대표이미지 이며, 이미지 용량은 2MB 까지 입니다.</span>
             </li>
             <li style="height:45px;">
-            <input type="file" name="pdfile">
+            <input type="file">
             <span class="help_text">※ 추가 이미지 이며, 이미지 용량은 2MB 까지 입니다.</span>
             </li>
             <li style="height:45px;">
-            <input type="file" name="pdfile">
+            <input type="file">
             <span class="help_text">※ 추가 이미지 이며, 이미지 용량은 2MB 까지 입니다.</span>
             </li>
             </ol>

@@ -188,7 +188,7 @@ String adYN=(String)session.getAttribute("adYN");
 </main>
 <%Date sitetoday = new Date(); %>
 <script type="module">
-import {homeset}from "./js/adset.js?v=<%=sitetoday%>";
+import {homeset}from "./js/adset.js?v=<%=today%>";
 
 document.querySelector("#set_save").addEventListener("click",function(){
 new homeset().save();

@@ -23,8 +23,7 @@ String adYN=(String)session.getAttribute("adYN");
 </nav>
 <main class="maincss">
 <section>
-<form id="pd_frm" enctype="multipart/form-data">
-<input type="hidden" name="pd_idx">
+<form id="pd_frm">
 <p>상품 등록 페이지</p>
 <div class="product_insert">
     <ul>
@@ -75,17 +74,17 @@ String adYN=(String)session.getAttribute("adYN");
     <ul>
         <li>상품재고</li>
         <li>
-            <input type="text" class="product_input3" maxlength="4" value="0" name="pd_ea">EA <span class="help_text">※ 숫자만 입력하세요. 재고가 0일 경우 soldout이 됩니다.</span>
+            <input type="text" class="product_input3" maxlength="4" value="0">EA <span class="help_text">※ 숫자만 입력하세요. 재고가 0일 경우 soldout이 됩니다.</span>
         </li>
     </ul>
     <ul>
         <li>판매 유/무</li>
         <li>
             <label class="product_label">
-            <input type="radio" name="pd_oyn" style="vertical-align:-1px;" checked> 판매시작
+            <input type="radio" name="a" style="vertical-align:-1px;" checked> 판매시작
             </label>
             <label class="product_label">
-            <input type="radio" name=pd_oyn" style="vertical-align:-1px;"> 판매종료
+            <input type="radio" name="a" style="vertical-align:-1px;"> 판매종료
             </label> <span class="help_text">※ 숫자만 입력하세요. 재고가 0일 경우 soldout이 됩니다.</span>
         </li>
     </ul>
@@ -93,10 +92,10 @@ String adYN=(String)session.getAttribute("adYN");
         <li>조기품절</li>
         <li>
             <label class="product_label">
-                <input type="radio" name="pd_xyn" style="vertical-align:-1px;"> 사용
+                <input type="radio" name="b" style="vertical-align:-1px;"> 사용
             </label>
             <label class="product_label">
-                <input type="radio" name="pd_xyn" style="vertical-align:-1px;" checked> 미사용
+                <input type="radio" name="b" style="vertical-align:-1px;" checked> 미사용
             </label>
         </li>
     </ul>
@@ -105,15 +104,15 @@ String adYN=(String)session.getAttribute("adYN");
         <li>
             <ol style="width:100%; height: auto;">
             <li style="width:100%; height:45px;">
-            <input type="file" name="pdfile">
+            <input type="file">
             <span class="help_text">※ 상품 대표이미지 이며, 이미지 용량은 2MB 까지 입니다.</span>
             </li>
             <li style="height:45px;">
-            <input type="file" name="pdfile">
+            <input type="file">
             <span class="help_text">※ 추가 이미지 이며, 이미지 용량은 2MB 까지 입니다.</span>
             </li>
             <li style="height:45px;">
-            <input type="file" name="pdfile">
+            <input type="file">
             <span class="help_text">※ 추가 이미지 이며, 이미지 용량은 2MB 까지 입니다.</span>
             </li>
             </ol>
@@ -122,7 +121,7 @@ String adYN=(String)session.getAttribute("adYN");
     <ul style="height: 400px;">
         <li>상품 상세설명</li>
         <li>
-            <textarea class="product_text1" name="pd_info"></textarea>
+            <textarea class="product_text1"></textarea>
         </li>
     </ul>
 </div>

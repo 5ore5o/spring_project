@@ -24,7 +24,6 @@ String adYN=(String)session.getAttribute("adYN");
 <main class="maincss">
 <section>
 <form id="pd_frm" enctype="multipart/form-data">
-<input type="hidden" name="pd_idx">
 <p>상품 등록 페이지</p>
 <div class="product_insert">
     <ul>
