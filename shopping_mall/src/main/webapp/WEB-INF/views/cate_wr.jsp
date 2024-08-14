@@ -24,11 +24,10 @@ String adYN=(String)session.getAttribute("adYN");
 <section>
     <p>카테고리 등록 페이지</p>
     <form id="cawr_frm">
-    <input type="hidden" name="ca_idx">
     <div class="cate_insert">
         <ul>
             <li>분류코드</li>
-            <li><input type="text" class="cate_input1" name="cacode"></li>
+            <li><input type="text" class="cate_input1" name="cacode" id="cacode"></li>
             <li>※ 분류코드는 대메뉴 코드와 소메뉴 코드를 합쳐서 자동 입력 됩니다.</li>
         </ul>
         <ul>
@@ -62,8 +61,8 @@ String adYN=(String)session.getAttribute("adYN");
         <ul>
             <li>사용 유/무</li>
             <li>
-                <label class="rmargin"><input type="radio" name="ca_use" checked>사용함 </label>
-                <label class="rmargin"><input type="radio" name="ca_use">사용안함</label>
+                <label class="rmargin"><input type="radio" name="ca_use" value="Y" checked>사용함 </label>
+                <label class="rmargin"><input type="radio" name="ca_use" value="N">사용안함</label>
             </li>
             <li>※ 카테고리 사용안함으로 설정시 쇼핑몰에 해당 메뉴는 생성 되지 않습니다.</li>
         </ul>
@@ -83,6 +82,6 @@ document.querySelector("#ca_list").addEventListener("click",function(){
 new caset().catelist();
 });
 document.querySelector("#cate_in").addEventListener("click",function(){
-new caset().catein();
+new caset().catein(cawr_frm.cacode.value);
 });
 </script>

@@ -31,6 +31,11 @@ select adidx,adid,adname,ademail,adnum1,adnum2,adnum3,addepart,adposition,adYN,a
 select count(*) from admininfo where adid=#{adid}
 </select>
 
+<insert id="cawr_in">
+insert into ca_set (ca_idx,cacode,lcode,lname,ca_use,cadate) values 
+('0',#{cacode},#{lcode},#{lname},#{ca_use},now())
+</insert>
+
 <insert id="home_in">
 insert into abad_setting (sidx,hi_title,hi_ademail,hi_use,hi_point,hi_level,
 hs_com,hs_bnum,hs_kname,hs_knum,hs_osnum,hs_addnum,hs_postal,hs_badd,hs_adname,hs_ademail,

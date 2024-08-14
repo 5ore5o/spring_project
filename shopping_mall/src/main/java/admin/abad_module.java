@@ -76,6 +76,18 @@ public class abad_module extends passwd_sh{
 		return 0;
 	}
 	
+	//카테고리 등록 페이지
+		public int catewr_in(adcate_dao catedao,String cacode,String lname) {
+			int catewrin=tm2.insert("abadminDB.cawr_in",catedao);
+			if(catewrin>0) {
+			if(!catedao.getCacode().equals(cacode) && !catedao.getLname().equals(lname)) {
+				return catewrin;
+			}
+			return catewrin;
+			}
+			return 0;
+	}
+	
 	//쇼핑몰 설정 저장
 	public int homein(adset_dao adsetdao) {
 		int homeset_result=tm2.insert("abadminDB.home_in",adsetdao);

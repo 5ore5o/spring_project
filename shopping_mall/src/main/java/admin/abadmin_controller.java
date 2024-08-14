@@ -24,7 +24,34 @@ public class abadmin_controller{
 	
 	PrintWriter pw= null;
 	
-	
+	@PostMapping("/admin/cate_in.do")
+	public String cate_in(HttpServletResponse res,adcate_dao catedao,String lname,String cacode) throws Exception{
+		res.setContentType("text/html;charset=utf-8");
+		this.pw=res.getWriter();
+		try {
+			int catewrin=am.catewr_in(catedao, cacode,lname);
+			if(catewrin>0) {
+				this.pw.print("<script>"
+						+ "alert('정상적으로 등록 되었습니다.');"
+						+ "location.href='/admin/cate_list.do';"
+						+ "</script>");
+			}else {
+				this.pw.print("<script>"
+						+ "alert('데이터 중복 또는 오류때문에 등록되지 않았습니다.');"
+						+ "history.go(-1);"
+						+ "</script>");
+			}
+		}catch(Exception e) {
+			this.pw.print("<script>"
+					+ "alert('DB오류 또는 데이터 중복으로 인해 등록되지 않았습니다.');"
+					+ "history.go(-1);"
+					+ "</script>");
+		}finally {
+			
+		}
+		this.pw.close();
+		return null;
+	}
 	
 	@PostMapping("/admin/YN_up.do")
 	public String YN_up(HttpServletResponse res,abad_dao abdao,int adidx) throws Exception {
@@ -49,7 +76,6 @@ public class abadmin_controller{
 						+ "alert('DB오류로 인해 수정되지 않았습니다');"
 						+ "location.href='/admin/admin_list.do';"
 						+ "</script>");
-
 		}
 		this.pw.close();
 		return null;

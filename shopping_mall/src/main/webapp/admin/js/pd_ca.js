@@ -5,9 +5,9 @@ cateset(){
 catelist(){
 	location.href="./cate_list.do";
 }
-catein(){
-	if(cawr_frm.cacode.value==""){
-		alert("분류코드를 입력하세요");
+catein(cacode_ck){
+	if(cawr_frm.cacode.value==""||cawr_frm.cacode.value.length < 2){
+		alert("분류코드를 최소 2자리 이상의 숫자로 입력하세요");
 	}
 	else if(cawr_frm.lcode.value==""||cawr_frm.lcode.value.length < 2|| isNaN(cawr_frm.lcode.value)){
 		alert("대메뉴 코드를 최소 2자리 이상의 숫자로 입력하세요");
