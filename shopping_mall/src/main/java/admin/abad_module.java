@@ -20,6 +20,12 @@ public class abad_module extends passwd_sh{
 	@Resource(name="template2")
 	private SqlSessionTemplate tm2;
 	
+	//카테고리 리스트 view
+	public List<adcate_dao> cate_liview(){
+		List<adcate_dao> cateliview= new ArrayList<adcate_dao>();
+		cateliview=tm2.selectList("abadminDB.cate_listview");
+		return cateliview;
+	}
 	
 	//관리자 승인,해제
 	public int adYN_up(int adidx){	
@@ -83,7 +89,7 @@ public class abad_module extends passwd_sh{
 			if(!catedao.getCacode().equals(cacode) && !catedao.getLname().equals(lname)) {
 				return catewrin;
 			}
-			return catewrin;
+			return catewrin; 
 			}
 			return 0;
 	}

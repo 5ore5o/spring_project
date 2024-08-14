@@ -1,6 +1,7 @@
 package admin;
 
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -24,34 +25,7 @@ public class abadmin_controller{
 	
 	PrintWriter pw= null;
 	
-	@PostMapping("/admin/cate_in.do")
-	public String cate_in(HttpServletResponse res,adcate_dao catedao,String lname,String cacode) throws Exception{
-		res.setContentType("text/html;charset=utf-8");
-		this.pw=res.getWriter();
-		try {
-			int catewrin=am.catewr_in(catedao, cacode,lname);
-			if(catewrin>0) {
-				this.pw.print("<script>"
-						+ "alert('정상적으로 등록 되었습니다.');"
-						+ "location.href='/admin/cate_list.do';"
-						+ "</script>");
-			}else {
-				this.pw.print("<script>"
-						+ "alert('데이터 중복 또는 오류때문에 등록되지 않았습니다.');"
-						+ "history.go(-1);"
-						+ "</script>");
-			}
-		}catch(Exception e) {
-			this.pw.print("<script>"
-					+ "alert('DB오류 또는 데이터 중복으로 인해 등록되지 않았습니다.');"
-					+ "history.go(-1);"
-					+ "</script>");
-		}finally {
-			
-		}
-		this.pw.close();
-		return null;
-	}
+	
 	
 	@PostMapping("/admin/YN_up.do")
 	public String YN_up(HttpServletResponse res,abad_dao abdao,int adidx) throws Exception {
@@ -81,8 +55,26 @@ public class abadmin_controller{
 		return null;
 	}
 	
+	//카테고리 list view
+	@GetMapping("/admin/cate_list.do")
+	public String cate_list(Model m,HttpServletResponse res,HttpServletRequest req,HttpSession se) throws Exception{
+		res.setContentType("text/html;charset=utf-8");
+		this.pw=res.getWriter();
+		
+		try {
+			List<adcate_dao> cateli = am.cate_liview();
+			m.addAttribute("cateli",cateli);
+		}catch(Exception e){
+			this.pw.print("<script>"
+					+ "alert('데이터 에러가 나서 정보를 불러오지 못합니다.');"
+					+ "</script>");
+			this.pw.close();
+		}
+		return "cate_list";
+	}
 	
-	//리턴메소드에 스크립트 절대 사용 X
+	
+	//관리자 정보 view //리턴메소드에 스크립트 절대 사용 X
 	@GetMapping("/admin/admin_list.do")
 	public String admin_list(Model m,HttpServletResponse res,HttpServletRequest req,HttpSession se) throws Exception{
 		res.setContentType("text/html;charset=utf-8");
@@ -164,7 +156,38 @@ public class abadmin_controller{
 	return null;
 	} 
 	
-	//쇼핑몰 설정저장
+	//카테고리 등록
+	@PostMapping("/admin/cate_in.do")
+	public String cate_in(HttpServletResponse res,adcate_dao catedao,String lname,String cacode) throws Exception{
+		res.setContentType("text/html;charset=utf-8");
+		this.pw=res.getWriter();
+		try {
+			int catewrin=am.catewr_in(catedao, cacode,lname);
+			if(catewrin>0) {
+				this.pw.print("<script>"
+						+ "alert('정상적으로 등록 되었습니다.');"
+						+ "location.href='/admin/cate_list.do';"
+						+ "</script>");
+			}else {
+				this.pw.print("<script>"
+						+ "alert('데이터 중복 또는 오류때문에 등록되지 않았습니다.');"
+						+ "history.go(-1);"
+						+ "</script>");
+			}
+		}catch(Exception e) {
+			this.pw.print("<script>"
+					+ "alert('DB오류 또는 데이터 중복으로 인해 등록되지 않았습니다.');"
+					+ "history.go(-1);"
+					+ "</script>");
+		}finally {
+			
+		}
+		this.pw.close();
+		return null;
+	}
+
+	
+	//쇼핑몰 설정 등록
 	@PostMapping("/admin/homesave.do")
 	public String homesave(HttpServletResponse res,adset_dao adsetdao)throws Exception{
 		res.setContentType("text/html;charset=utf-8");
@@ -188,6 +211,7 @@ public class abadmin_controller{
 		return null;
 	}
 	
+	//관리자 등록
 	@PostMapping("/admin/admin_insert.do")
 	public String admin_insert(HttpServletResponse res,String adpw,abad_dao abdao) throws Exception {
 		res.setContentType("text/html;charset=utf-8");
@@ -228,11 +252,6 @@ public class abadmin_controller{
 	@GetMapping("/admin/cate_write.do")
 	public String catewrite() {
 		return "cate_write";
-	}
-	//카테고리 관리 페이지
-	@GetMapping("/admin/cate_list.do")
-	public String catelist() {
-		return "cate_list";
 	}
 	//신규 상품등록 페이지
 	@GetMapping("/admin/product_write.do")
