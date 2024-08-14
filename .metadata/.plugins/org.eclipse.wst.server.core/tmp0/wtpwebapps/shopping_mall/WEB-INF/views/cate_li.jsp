@@ -47,19 +47,23 @@ String adYN=(String)session.getAttribute("adYN");
         <li>사용 유/무</li>
         <li>관리</li>
     </ul>
+    <cr:forEach var="cateli" items="${cateli}">
     <ul>
-        <li><input type="checkbox"></li>
-        <li style="text-align: left; text-indent: 5px;">분류코드</li>
-        <li>대메뉴 코드</li>
-        <li style="text-align: left; text-indent: 5px;">대메뉴명</li>
+        <li><input type="checkbox" value="${cateli.ca_idx}"></li>
+        <li style="text-align: left; text-indent: 5px;">${cateli.cacode}</li>
+        <li>${cateli.lcode}</li>
+        <li style="text-align: left; text-indent: 5px;">${cateli.lname}</li>
         <li>-</li>
         <li style="text-align: left; text-indent: 5px;">-</li>
-        <li>Y</li>
+        <li>${cateli.ca_use}</li>
         <li>[수정]</li>
     </ul>
+   </cr:forEach>
+    <cr:if test="${cateli==null}">
     <ul>
         <li style="width: 100%;">등록된 카테고리가 없습니다.</li>
     </ul>
+    </cr:if>
 </div>
 <div class="subpage_view3">
     <ul class="pageing">

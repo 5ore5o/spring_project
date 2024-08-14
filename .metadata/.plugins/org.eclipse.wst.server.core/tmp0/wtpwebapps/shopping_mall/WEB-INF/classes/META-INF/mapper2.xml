@@ -23,6 +23,10 @@ order by adidx desc
 update admininfo set adYN=#{adYN} where adidx=#{adidx}
 </update>
 
+<select id="cate_listview" resultType="adcatedao">
+select ca_idx,cacode,lcode,lname,ca_use from ca_set
+</select>
+
 <select id="adli_select" resultType="abaddao"> 
 select adidx,adid,adname,ademail,adnum1,adnum2,adnum3,addepart,adposition,adYN,addate from admininfo
 </select>
