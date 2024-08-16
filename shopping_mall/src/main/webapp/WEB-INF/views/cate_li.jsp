@@ -36,9 +36,10 @@ String adYN=(String)session.getAttribute("adYN");
         </form>
     </span>
 </div>
+<form id="cateset_frm">
 <div class="subpage_view2">
     <ul>
-        <li><input type="checkbox"></li>
+        <li><input type="checkbox" id="cackall"></li>
         <li>분류코드</li>
         <li>대메뉴 코드</li>
         <li>대메뉴명</li>
@@ -49,7 +50,7 @@ String adYN=(String)session.getAttribute("adYN");
     </ul>
     <cr:forEach var="cateli" items="${cateli}">
     <ul>
-        <li><input type="checkbox" value="${cateli.ca_idx}"></li>
+        <li><input type="checkbox" value="${cateli.ca_idx}" name="ca_idx" onclick="each_cack(this)">${cateli.ca_idx}</li>
         <li style="text-align: left; text-indent: 5px;">${cateli.cacode}</li>
         <li>${cateli.lcode}</li>
         <li style="text-align: left; text-indent: 5px;">${cateli.lname}</li>
@@ -75,20 +76,39 @@ String adYN=(String)session.getAttribute("adYN");
     </ul>
 </div>
 <div class="subpage_view4">
-    <input type="button" value="카테고리 삭제" title="카테고리 삭제" class="p_button">
+    <input type="button" value="카테고리 삭제" title="카테고리 삭제" class="p_button" id="cadel">
     <span style="float: right;">
     <input type="button" value="상품 리스트" title="상품 리스트" class="p_button p_button_color1">
     <input type="button" value="카테고리 등록" title="카테고리 등록" class="p_button p_button_color2" id="ca_set">
     </span>
 </div>
+</form>
 </section>
 </main>
+<script>
+var ca_idx= document.getElementsByName("ca_idx");
+var cackall= document.getElementById("cackall");
+function each_cack(z){
+if(!z.checked){
+	cackall.checked=false;
+}else{
+	
+}
+}
+</script>
 <% Date catoday=new Date(); %>
 <script type="module">
 import {caset}from "./js/pd_ca.js?v=<%=catoday%>";
 
 document.querySelector("#ca_set").addEventListener("click",function(){
 new caset().cateset();
+});
+
+document.querySelector("#cadel").addEventListener("click",function(){
+new caset().ca_del();
+});
+document.querySelector("#cackall").addEventListener("click",function(){
+new caset().cack_all();
 });
 
 </script>
