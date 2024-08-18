@@ -51,9 +51,15 @@ select ca_idx,cacode,lcode,lname,ca_use from ca_set
 select adidx,adid,adname,ademail,adnum1,adnum2,adnum3,addepart,adposition,adYN,addate from admininfo
 </select>
 
+<!-- 중복 체크 -->
+<select id="pdcode_check" parameterType="String" resultType="Integer">
+select count(*) from pd_set where pd_code=#{pd_code}
+</select>
+
 <select id="id_check" parameterType="String" resultType="Integer">
 select count(*) from admininfo where adid=#{adid}
 </select>
+
 
 <insert id="cawr_in">
 insert into ca_set (ca_idx,cacode,lcode,lname,ca_use,cadate) values 

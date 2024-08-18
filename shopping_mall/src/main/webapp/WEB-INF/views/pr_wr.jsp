@@ -8,7 +8,7 @@ Random rd= new Random();
 String pd_code="";
 int w=0;
 while(w<7){
-	pd_code+=rd.nextInt(9);
+	pd_code+=rd.nextInt(10);
 	w++;
 }
 request.setAttribute("pd_code", pd_code);
@@ -133,12 +133,6 @@ import {pdset}from "./js/pd_ca.js?v=<%=prtoday%>";
 
 document.querySelector("#pdcate").addEventListener("click",function(){
 new pdset().pdcate();
-});
-document.addEventListener("DOMContentLoaded",function(){
-new pdset().pdcode();
-});
-document.querySelector("#pdcode_dupli").addEventListener("click",function(){
-new pdset().pdcode_dupli();
 });
 
 </script>

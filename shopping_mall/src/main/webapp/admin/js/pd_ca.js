@@ -93,8 +93,31 @@ cali(){
 pdcate(){
 	location.href="./cate_list.do";	
 }
+}
 
-pdcode_dupli(){
-	
-}
-}
+$(function(){
+	$("#pdcode_dupli").click(function(){
+		$.ajax({
+		url :"./pdcode_ck.do",
+		cache : false,
+		type : "post",
+		dataType:"html",
+		
+		data:{
+		pd_code : $("#pd_code").val()
+		},
+		contentType:"application/x-www-form-urlencoded",
+		success : function($data,$pdckresult){
+			if($data=="no"){
+				alert("이미 사용중인 상품코드 입니다.");
+			}
+			else{
+				alert("사용 가능한 상품코드 입니다.");
+			}
+		},
+		error : function ($pdckresult){
+			alert("통신오류발생으로 인해 작동되지 않습니다.");
+		}	
+		});
+	});
+});

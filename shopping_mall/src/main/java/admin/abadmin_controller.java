@@ -175,7 +175,47 @@ public class abadmin_controller{
 		this.pw.close();
 		return null;
 	}
+	//상품코드 중복체크
+	@PostMapping("/admin/pdcode_ck.do")
+	public String pdcodecheck(HttpServletResponse res,String pd_code,adpd_dao pddao) throws Exception {
+		res.setContentType("application/json;charset=utf-8");
+		this.pw=res.getWriter();
+		String pdckresult="";
+		Integer pdck_result=am.pd_codeck(pd_code,pddao);
+	if(pdck_result>0) {
+		pdckresult="no";
+	}
+	else{
+		pdckresult="yes";
+	}
+	this.pw.print(pdckresult);
+	this.pw.close();
 	
+	return null;
+	}
+	/*
+	public String pdcodecheck(HttpServletResponse res,String pd_code,adpd_dao pddao) throws Exception {
+		res.setContentType("application/json;charset=utf-8");
+		this.pw=res.getWriter();
+		String pdckresult="";
+		String pdck_result=am.pd_codeck(pd_code,pddao);
+		if(!pdck_result.equals(pd_code)) {
+			String new_pdcode=am.repdcode();
+	
+			pddao.setPd_code(new_pdcode);
+			pdckresult="no";
+		}
+		else {
+			pdckresult="yes";
+		}
+		this.pw.print(pdckresult);
+		this.pw.close();
+		
+	return null;
+	}
+	*/
+	
+	//아이디 중복체크
 	@PostMapping("/admin/idcheck.do")
 	public String idcheck(HttpServletResponse res,String adid,abad_dao abdao) throws Exception {
 		res.setContentType("application/json;charset=utf-8");

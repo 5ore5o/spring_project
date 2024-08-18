@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -93,6 +94,42 @@ public class abad_module extends passwd_sh{
 		return null;
 	}
 	
+	
+	//pdcode 중복체크
+	public int pd_codeck(String pd_code,adpd_dao pddao) {
+		Integer pdck_result= tm2.selectOne("abadminDB.pdcode_check",pd_code);
+		if(pdck_result<0 && pd_code != null&& pddao.getPd_code() !=null) {
+		
+		return pdck_result;
+		}
+		return 0;
+	}
+	/*
+	public String pd_codeck(String pd_code,adpd_dao pddao) {
+		Integer pdck_result= tm2.selectOne("abadminDB.pdcode_check",pd_code);
+		if(pdck_result>0 && pd_code != null&& pddao.getPd_code() !=null) {
+		String new_pdcode=repdcode();
+		pddao.setPd_code(new_pdcode);
+		
+		return new_pdcode;
+		}
+		return pd_code;
+	}
+	public String repdcode() {
+	String new_pdcode="";
+	Random rd= new Random();
+	Boolean pddup=true;
+	while(pddup) {
+		new_pdcode="";
+		for(int f=0;f<7;f++) {
+			new_pdcode += rd.nextInt(10);
+		}
+		Integer result= (Integer)tm2.selectOne("abadminDB.pdcode_check", new_pdcode);
+		pddup=result>0;
+	}
+	return new_pdcode;
+	}
+	*/
 	
 	//id 중복체크
 	public int ab_idck(String adid,abad_dao abdao) {
