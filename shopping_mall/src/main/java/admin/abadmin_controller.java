@@ -152,14 +152,13 @@ public class abadmin_controller{
 
 				this.pw.print("<script>"
 					+ "alert('최고관리자로 로그인하였습니다.');"
-					//+ "location.href='/admin/admin_main.do';"
 					+ "location.href='/admin/admin_list.do';"
 					+ "</script>");
 		}else{
 
 			this.pw.print("<script>"
 					+ "alert('로그인하였습니다.');"
-					+ "location.href='/admin/admin_main.do';"
+					+ "location.href='/admin/shop_member_list.do';"
 					+ "</script>");
 		}}else {
 			this.pw.print("<script>"
@@ -288,6 +287,21 @@ public class abadmin_controller{
 				+ "</script>");
 		this.pw.close();
 		return "logout";
+	}
+	//쇼핑몰 멤버 리스트 페이지
+	@GetMapping("/admin/shop_member_list.do")
+	public String shopmemberlist() {
+		return "shop_member_list";
+	}
+	//공지사항 등록 페이지
+	@GetMapping("/admin/notice_write.do")
+	public String noticewrite() {
+		return "notice_write";
+	}
+	//공지사항 리스트 페이지
+	@GetMapping("/admin/notice_list.do")
+	public String noticelist() {
+		return "notice_list";
 	}
 	//카테고리 등록 페이지
 	@GetMapping("/admin/cate_write.do")

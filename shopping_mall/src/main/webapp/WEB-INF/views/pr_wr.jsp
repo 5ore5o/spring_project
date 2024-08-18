@@ -1,7 +1,18 @@
+<%@page import="java.util.Random"%>
 <%@page import="java.util.Date"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@taglib prefix="cr" uri="http://java.sun.com/jsp/jstl/core" %>
+<%
+Random rd= new Random();
+String pd_code="";
+int w=0;
+while(w<7){
+	pd_code+=rd.nextInt(9);
+	w++;
+}
+request.setAttribute("pd_code", pd_code);
+%>
 <main class="maincss">
 <section>
 <p>상품 등록 페이지</p>
@@ -11,7 +22,7 @@
     <ul>
         <li>대메뉴 카테고리</li>
         <li>
-            <select class="product_input1">
+            <select class="product_input1" name="pd_lname">
             <cr:forEach var="lnameli" items="${lnameli}">
                 <option value="${lnameli}">${lnameli}</option>
             </cr:forEach>    
@@ -21,7 +32,7 @@
     <ul>
         <li>상품코드</li>
         <li>
-            <input type="text" class="product_input1" name="pd_code">
+            <input type="text" class="product_input1" name="pd_code" value="<%=pd_code%>" readonly>
             <input type="button" value="중복확인" title="중복확인" class="product_btn" id="pdcode_dupli"> <span class="help_text">※ 상품코드는 절대 중복되지 않도록 합니다.</span>
         </li>
     </ul>
@@ -68,7 +79,7 @@
             <input type="radio" name="pd_oyn" style="vertical-align:-1px;" checked> 판매시작
             </label>
             <label class="product_label">
-            <input type="radio" name=pd_oyn" style="vertical-align:-1px;"> 판매종료
+            <input type="radio" name="pd_oyn" style="vertical-align:-1px;"> 판매종료
             </label> <span class="help_text">※ 숫자만 입력하세요. 재고가 0일 경우 soldout이 됩니다.</span>
         </li>
     </ul>
@@ -122,6 +133,9 @@ import {pdset}from "./js/pd_ca.js?v=<%=prtoday%>";
 
 document.querySelector("#pdcate").addEventListener("click",function(){
 new pdset().pdcate();
+});
+document.addEventListener("DOMContentLoaded",function(){
+new pdset().pdcode();
 });
 document.querySelector("#pdcode_dupli").addEventListener("click",function(){
 new pdset().pdcode_dupli();
