@@ -19,12 +19,33 @@ public class abad_module extends passwd_sh{
 	
 	@Resource(name="template2")
 	private SqlSessionTemplate tm2;
+	//lname 출력
+	public List<adcate_dao> lnamedata(){
+		List<adcate_dao> lnameli= new ArrayList<adcate_dao>();
+		lnameli=tm2.selectList("abadminDB.lname_li");
+		return lnameli;
+	}
 	
+	//카테고리 삭제
+	public int cate_del(String ca_idx) {
+		int catedel_result=this.tm2.delete("abadminDB.cate_del",ca_idx);
+		return catedel_result;
+	}
+	//카테고리 검색
+	public List<adcate_dao> cadata(String search_catepart,String search_cateword){
+		
+		List<adcate_dao> cd = new ArrayList<adcate_dao>();
+		Map<String, String> cam = new HashMap<String, String>();
+		cam.put("search_catepart", search_catepart);
+		cam.put("search_cateword", search_cateword);
+		cd = tm2.selectList("abadminDB.cate_search",cam);
+		return cd;
+	}
 	//카테고리 리스트 view
-	public List<adcate_dao> cate_liview(){
-		List<adcate_dao> cateliview= new ArrayList<adcate_dao>();
-		cateliview=tm2.selectList("abadminDB.cate_listview");
-		return cateliview;
+	public List<adcate_dao> cadata(){
+		List<adcate_dao> cd= new ArrayList<adcate_dao>();
+		cd=tm2.selectList("abadminDB.cate_listview");
+		return cd;
 	}
 	
 	//관리자 승인,해제

@@ -15,6 +15,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class abadmin_controller{
@@ -25,8 +26,39 @@ public class abadmin_controller{
 	
 	PrintWriter pw= null;
 	
+	//lname 리스트,신규 상품등록 페이지
+	@GetMapping("/admin/product_write.do")
+	public String productwriter(Model lnamem) {
+		List<adcate_dao> lnameli =am.lnamedata();
+		lnamem.addAttribute("lnameli",lnameli);
+		return "product_write";
+	}
 	
+	//카테고리 데이터 삭제
+	@PostMapping("/admin/del_cateck.do")
+	public String del_cateck(HttpServletResponse res,String ca_idx)throws Exception{
+		res.setContentType("text/html;charset=utf-8");
+		this.pw= res.getWriter();
+		try {
+			int catedel_result= am.cate_del(ca_idx);
+			if(catedel_result> 0) {
+				this.pw.print("<script>"
+						+ "alert('해당 데이터를 삭제 하였습니다.');"
+						+ "location.href='/admin/cate_list.do';"
+						+ "</script>");
+			}
+		}catch(Exception e) {
+			this.pw.print("<script>"
+					+ "alert('DB 오류로 인하여 삭제되지 않았습니다.');"
+					+ "history.go(-1);"
+					+ "</script>");
+			System.out.println(e);
+		}
+		this.pw.close();
+		return null;
+	}
 	
+	//관리자 권한 수정
 	@PostMapping("/admin/YN_up.do")
 	public String YN_up(HttpServletResponse res,abad_dao abdao,int adidx) throws Exception {
 		res.setContentType("text/html;charset=utf-8");
@@ -54,27 +86,37 @@ public class abadmin_controller{
 		this.pw.close();
 		return null;
 	}
-	
-	//카테고리 list view
+	//카테고리 검색&view
 	@GetMapping("/admin/cate_list.do")
-	public String cate_list(Model m,HttpServletResponse res,HttpServletRequest req,HttpSession se) throws Exception{
+	public String calist_search(Model cam,HttpServletResponse res,
+			@RequestParam(defaultValue="",required=false)String search_catepart,
+			@RequestParam(defaultValue="",required=false)String search_cateword) throws Exception {
+		
 		res.setContentType("text/html;charset=utf-8");
 		this.pw=res.getWriter();
 		
+		List<adcate_dao> caresult =null;
 		try {
-			List<adcate_dao> cateli = am.cate_liview();
-			m.addAttribute("cateli",cateli);
-		}catch(Exception e){
+			if(search_catepart.equals("")&& search_cateword.equals("")) {
+				caresult = am.cadata();
+			}else {
+				cam.addAttribute("search_part",search_catepart);
+				cam.addAttribute("search_word",search_cateword);
+				caresult = am.cadata(search_catepart,search_cateword);
+			}
+			cam.addAttribute("caresult",caresult);
+			
+		}catch(Exception e) {
 			this.pw.print("<script>"
-					+ "alert('데이터 에러가 나서 정보를 불러오지 못합니다.');"
+					+ "alert('DB오류로 인해 출력되지 않았습니다');"
+					+ "location.href='/admin/cate_list.do';"
 					+ "</script>");
 			this.pw.close();
 		}
 		return "cate_list";
 	}
 	
-	
-	//관리자 정보 view //리턴메소드에 스크립트 절대 사용 X
+	//관리자 정보 view
 	@GetMapping("/admin/admin_list.do")
 	public String admin_list(Model m,HttpServletResponse res,HttpServletRequest req,HttpSession se) throws Exception{
 		res.setContentType("text/html;charset=utf-8");
@@ -129,6 +171,7 @@ public class abadmin_controller{
 					+ "alert('Database문제로 인하여 해당 정보가 확인 되지 않습니다.');"
 					+ "history.go(-1);"
 					+ "</script>");
+		System.out.println(e);
 		}
 		this.pw.close();
 		return null;
@@ -205,7 +248,6 @@ public class abadmin_controller{
 					+ "alert('DB 오류로 인하여 등록되지 않았습니다.');"
 					+ "history.go(-1);"
 					+ "</script>");
-			System.out.println(e);
 		}
 		this.pw.close();
 		return null;
@@ -229,7 +271,6 @@ public class abadmin_controller{
 					+ "alert('DB 오류로 인하여 등록되지 않았습니다.');"
 					+ "history.go(-1);"
 					+ "</script>");
-			
 		}
 		this.pw.close();
 		return null;
@@ -253,11 +294,7 @@ public class abadmin_controller{
 	public String catewrite() {
 		return "cate_write";
 	}
-	//신규 상품등록 페이지
-	@GetMapping("/admin/product_write.do")
-	public String productwriter() {
-		return "product_write";
-	}
+	
 	//쇼핑몰 상품관리 페이지
 	@GetMapping("/admin/product_list.do")
 	public String productlist(){

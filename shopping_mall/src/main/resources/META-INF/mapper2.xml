@@ -3,6 +3,19 @@
 <mapper namespace="abadminDB">
 
 
+<select id="cate_search" resultType="adcatedao" parameterType="Map">
+select * from ca_set 
+<where>
+<if test='search_catepart=="1"'>
+lname like concat('%',#{search_cateword},'%')
+</if>
+<if test='search_catepart=="2"'>
+lcode like concat('%',#{search_cateword},'%')
+</if>
+</where>
+ order by ca_idx desc;
+</select>
+
 <select id="adin_select" parameterType="Map" resultType="abaddao">
 select * from admininfo 
 <choose>
@@ -18,10 +31,17 @@ order by adidx desc
 </choose>
 </select>
 
+<delete id="cate_del">
+delete from ca_set where FIND_IN_SET(ca_idx,#{ca_idx})
+</delete>
 
 <update id="adYN_update" parameterType="abaddao">
 update admininfo set adYN=#{adYN} where adidx=#{adidx}
 </update>
+
+<select id="lname_li" resultType="String">
+select lname from ca_set
+</select>
 
 <select id="cate_listview" resultType="adcatedao">
 select ca_idx,cacode,lcode,lname,ca_use from ca_set
