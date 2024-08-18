@@ -31,9 +31,9 @@
 	
 	
 	<!-- 개인프로젝트 쇼핑몰 -->
-	<resources mapping="/mallpage/**" location="/mallpage/"/>
-	<resources mapping="/mallpage/images/**" location="/mallpage/images/"/>
-	<resources mapping="/mallpage/product/**" location="/mallpage/product/"/>
+	<resources mapping="/mall/**" location="/mall/"/>
+	<resources mapping="/mall/images/**" location="/mall/images/"/>
+	<resources mapping="/mall/product/**" location="/mall/product/"/>
 	
 	<!-- Resolves views selected for rendering by @Controllers to .jsp resources in the /WEB-INF/views directory -->
 	<beans:bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">

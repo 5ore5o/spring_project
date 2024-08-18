@@ -93,6 +93,7 @@ cali(){
 pdcate(){
 	location.href="./cate_list.do";	
 }
+
 pdcode_dupli(){
 	
 }
