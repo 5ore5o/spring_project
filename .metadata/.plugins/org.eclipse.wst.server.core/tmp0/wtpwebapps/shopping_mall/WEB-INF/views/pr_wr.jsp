@@ -2,43 +2,26 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@taglib prefix="cr" uri="http://java.sun.com/jsp/jstl/core" %>
-<%
-String adid=(String)session.getAttribute("adid");
-String adYN=(String)session.getAttribute("adYN");
-%>
-<nav class="navcss">
-    <div class="nav_div">
-        <ol>
-        	<%if("master".equals(adid)){ %>
-            <li title="쇼핑몰 상품관리"><a href="./admin_list.do">쇼핑몰 관리자 리스트</a></li>
-            <%}%>
-            <%if(adid !=null){ %>
-            <li title="쇼핑몰 회원관리"><a href="./shop_member_list.do">쇼핑몰 회원관리</a></li>
-            <li title="쇼핑몰 상품관리"><a href="./product_list.do">쇼핑몰 상품관리</a></li>
-			<li title="쇼핑몰 기본설정"><a href="./admin_siteinfo.do">쇼핑몰 기본설정</a></li>
-            <li title="쇼핑몰 공지사항"><a href="./notice_list.do">쇼핑몰 공지사항</a></li>
-            <%} %>
-        </ol>
-    </div>
-</nav>
 <main class="maincss">
 <section>
+<p>상품 등록 페이지</p>
 <form id="pd_frm" enctype="multipart/form-data">
 <input type="hidden" name="pd_idx">
-<p>상품 등록 페이지</p>
 <div class="product_insert">
     <ul>
         <li>대메뉴 카테고리</li>
         <li>
             <select class="product_input1">
-                <option></option>
+            <cr:forEach var="lnameli" items="${lnameli}">
+                <option value="${lnameli}">${lnameli}</option>
+            </cr:forEach>    
             </select><input type="button" value="카테고리 등록" title="카테고리 등록" class="product_btn" id="pdcate"> <span class="help_text">※ 해당 카테고리가 없을 경우 신규 등록하시길 바랍니다.</span>
         </li>
     </ul>
     <ul>
         <li>상품코드</li>
         <li>
-            <input type="text" class="product_input1" name="pd_code"> 
+            <input type="text" class="product_input1" name="pd_code">
             <input type="button" value="중복확인" title="중복확인" class="product_btn" id="pdcode_dupli"> <span class="help_text">※ 상품코드는 절대 중복되지 않도록 합니다.</span>
         </li>
     </ul>
@@ -130,7 +113,6 @@ String adYN=(String)session.getAttribute("adYN");
 <div class="subpage_view4" style="text-align:center; margin-bottom: 100px;">
     <input type="button" value="상품 리스트" title="상품 리스트" class="p_button p_button_color1" style="margin-right: 5px;">
     <input type="button" value="상품 등록" title="상품 등록" class="p_button p_button_color2">
-    </span>
 </div>
 </section>
 </main>

@@ -2,37 +2,19 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@taglib prefix="cr" uri="http://java.sun.com/jsp/jstl/core" %>
-<%
-String adid=(String)session.getAttribute("adid");
-String adYN=(String)session.getAttribute("adYN");
-%>
-<nav class="navcss">
-    <div class="nav_div">
-        <ol>
-        	<%if("master".equals(adid)){ %>
-            <li title="쇼핑몰 상품관리"><a href="./admin_list.do">쇼핑몰 관리자 리스트</a></li>
-            <%}%>
-            <%if(adid !=null){ %>
-            <li title="쇼핑몰 회원관리"><a href="./shop_member_list.do">쇼핑몰 회원관리</a></li>
-            <li title="쇼핑몰 상품관리"><a href="./product_list.do">쇼핑몰 상품관리</a></li>
-			<li title="쇼핑몰 기본설정"><a href="./admin_siteinfo.do">쇼핑몰 기본설정</a></li>
-            <li title="쇼핑몰 공지사항"><a href="./notice_list.do">쇼핑몰 공지사항</a></li>
-            <%} %>
-        </ol>
-    </div>
 <main class="maincss">
     <section>    
 <p>카테고리관리 페이지</p>
 <div class="subpage_view">
     <span>등록된 카테고리 0건</span>
     <span>
-        <form>
-        <select class="p_select1">
-            <option>카테고리명</option>
-            <option>카테고리코드</option>
+        <form id="casearch_frm">
+        <select class="p_select1" name="search_catepart">
+            <option value="1">카테고리명</option>
+            <option value="2">카테고리코드</option>
         </select>
-        <input type="text" class="p_input1" placeholder="검색어를 입력해 주세요">
-        <input type="submit" value="검색" title="카테고리 검색" class="p_submit">
+        <input type="text" name="search_cateword" value="${search_cateword}" class="p_input1" placeholder="검색어를 입력해 주세요">
+        <input type="submit" value="검색" title="카테고리 검색" class="p_submit" id="catesearch">
         </form>
     </span>
 </div>
@@ -48,9 +30,9 @@ String adYN=(String)session.getAttribute("adYN");
         <li>사용 유/무</li>
         <li>관리</li>
     </ul>
-    <cr:forEach var="cateli" items="${cateli}">
+    <cr:forEach var="cateli" items="${caresult}">
     <ul>
-        <li><input type="checkbox" value="${cateli.ca_idx}" name="ca_idx" onclick="each_cack(this)">${cateli.ca_idx}</li>
+        <li><input type="checkbox" value="${cateli.ca_idx}" name="ca_idx"></li>
         <li style="text-align: left; text-indent: 5px;">${cateli.cacode}</li>
         <li>${cateli.lcode}</li>
         <li style="text-align: left; text-indent: 5px;">${cateli.lname}</li>
@@ -60,11 +42,13 @@ String adYN=(String)session.getAttribute("adYN");
         <li>[수정]</li>
     </ul>
    </cr:forEach>
-    <cr:if test="${cateli==null}">
+    
+    <cr:if test="${empty caresult}">
     <ul>
         <li style="width: 100%;">등록된 카테고리가 없습니다.</li>
     </ul>
     </cr:if>
+    
 </div>
 <div class="subpage_view3">
     <ul class="pageing">
@@ -78,37 +62,39 @@ String adYN=(String)session.getAttribute("adYN");
 <div class="subpage_view4">
     <input type="button" value="카테고리 삭제" title="카테고리 삭제" class="p_button" id="cadel">
     <span style="float: right;">
-    <input type="button" value="상품 리스트" title="상품 리스트" class="p_button p_button_color1">
+    <input type="button" value="상품 리스트" title="상품 리스트" class="p_button p_button_color1" id="cago_pd">
     <input type="button" value="카테고리 등록" title="카테고리 등록" class="p_button p_button_color2" id="ca_set">
     </span>
 </div>
 </form>
 </section>
 </main>
-<script>
-var ca_idx= document.getElementsByName("ca_idx");
-var cackall= document.getElementById("cackall");
-function each_cack(z){
-if(!z.checked){
-	cackall.checked=false;
-}else{
-	
-}
-}
-</script>
 <% Date catoday=new Date(); %>
 <script type="module">
 import {caset}from "./js/pd_ca.js?v=<%=catoday%>";
 
+const ca_idx= document.getElementsByName("ca_idx");
+const search_cateword= document.getElementsByName("search_cateword");
+
+document.querySelector("#catesearch").addEventListener("click",function(){
+new caset().casearch(search_cateword);
+});
 document.querySelector("#ca_set").addEventListener("click",function(){
 new caset().cateset();
 });
+document.querySelector("#cago_pd").addEventListener("click",function(){
+new caset().cagopd();
+});
 
 document.querySelector("#cadel").addEventListener("click",function(){
-new caset().ca_del();
+new caset().ca_del(ca_idx);
 });
 document.querySelector("#cackall").addEventListener("click",function(){
-new caset().cack_all();
+new caset().cack_all(ca_idx);
+});
+document.querySelectorAll("[name='ca_idx']").forEach(function(ckbox){ckbox.addEventListener("click",function(){
+new caset().each_cack(ckbox ,ca_idx);
+});
 });
 
 </script>
