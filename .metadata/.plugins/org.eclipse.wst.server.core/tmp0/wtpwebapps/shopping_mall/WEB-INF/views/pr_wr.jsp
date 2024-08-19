@@ -135,4 +135,27 @@ document.querySelector("#pdcate").addEventListener("click",function(){
 new pdset().pdcate();
 });
 
+const calDcPrice=()=>{
+const pd_cash= parseInt(document.getElementById("pd_cash").value);
+const pd_dcr= parseInt(document.getElementById("pd_dcr").value);
+
+const pd_dcp= document.getElementById("pd_dcp");
+
+if(pd_dcr==0){
+pd_dcp.value=0;
+}else{
+let cal_dcp= pd_cash-(pd_cash*(pd_dcr/100));
+
+if(cal_dcp % 1 == 0.5){
+cal_dcp=Math.floor(cal_dcp);
+}else{
+cal_dcp=Math.round(cal_dcp);
+}
+
+pd_dcp.value=cal_dcp;
+
+}
+};
+document.getElementById("pd_cash").addEventListener("input", calDcPrice);
+document.getElementById("pd_dcr").addEventListener("input",calDcPrice);
 </script>
