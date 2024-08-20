@@ -93,6 +93,36 @@ cali(){
 pdcate(){
 	location.href="./cate_list.do";	
 }
+back(){
+	location.href="./product_list.do";
+}
+productin(){
+var pdfile = document.getElementsByName("pdfile");
+var count = 0;
+for(let f=0; f<pdfile.length;f++){
+	if(pdfile[f].value != ""){
+		count++;
+	}
+}
+	
+	if(pd_frm.pd_name.value=="" || pd_frm.pd_addinfo.value==""){
+		alert("상품명 또는 상품부가설명을 적어주세요.");
+	}
+	else if(pd_frm.pd_cash.value==""){
+		alert("판매가격을 적어주세요.");
+	}
+	else if(count<=0){
+		alert("상품 이미지를 최소 1개이상 올려주세요.");
+	}
+	else if(pd_frm.pd_info.value==""){
+		alert("상품 상세설명을 적어주세요.");
+	}
+	else{
+	pd_frm.method="post";
+	pd_frm.action="./pd_in.do";
+	pd_frm.submit();
+	}
+}
 }
 
 $(function(){

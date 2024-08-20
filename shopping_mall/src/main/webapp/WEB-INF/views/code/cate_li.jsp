@@ -69,9 +69,8 @@
 </form>
 </section>
 </main>
-<% Date catoday=new Date(); %>
 <script type="module">
-import {caset}from "./js/pd_ca.js?v=<%=catoday%>";
+import {caset}from "./js/pd_ca.js";
 
 const ca_idx= document.getElementsByName("ca_idx");
 const search_cateword= document.getElementsByName("search_cateword");

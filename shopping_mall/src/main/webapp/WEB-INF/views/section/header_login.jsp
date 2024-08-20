@@ -38,3 +38,4 @@ String adYN=(String)session.getAttribute("adYN");
             <%} %>
         </ol>
     </div>
+</nav>

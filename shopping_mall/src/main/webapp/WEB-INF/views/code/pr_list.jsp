@@ -69,9 +69,8 @@
 </div>
 </section>
 </main>
-<% Date pdtoday=new Date(); %>
 <script type="module">
-import {pdset}from "./js/pd_ca.js?v=<%=pdtoday%>";
+import {pdset}from "./js/pd_ca.js";
 
 document.querySelector("#pd_wr").addEventListener("click",function(){
 new pdset().pdwr();

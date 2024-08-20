@@ -237,6 +237,12 @@ public class abadmin_controller{
 		
 	return null;
 	} 
+	//상품 등록
+	@PostMapping("/admin/pd_in.do")
+	public String product_in(HttpServletResponse res,adpd_dao pddao) {
+	
+		return null;
+	}
 	
 	//카테고리 등록
 	@PostMapping("/admin/cate_in.do")

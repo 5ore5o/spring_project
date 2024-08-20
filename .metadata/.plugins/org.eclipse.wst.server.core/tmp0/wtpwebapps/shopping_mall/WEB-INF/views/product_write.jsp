@@ -11,7 +11,7 @@
     <title>상품 등록 페이지</title>
     <link rel="stylesheet" type="text/css" href="./css/basic.css">
     <link rel="stylesheet" type="text/css" href="./css/login.css?v=<%=today %>">
-    <link rel="stylesheet" type="text/css" href="./css/main.css">
+    <link rel="stylesheet" type="text/css" href="./css/main.css?v=1">
     <link rel="stylesheet" type="text/css" href="./css/product.css?v=<%=today %>">
     <link rel="icon" href="./img/logo.png" sizes="128x128">
     <link rel="icon" href="./img/logo.png" sizes="64x64">
@@ -21,13 +21,13 @@
 </head>
 <body>
 <!-- 상단 시작 -->
-<%@include file="./header_login.jsp" %>
+<%@include file="./section/header_login.jsp" %>
 <!-- 상단 끝 -->
 <!-- 중단 시작 -->
-<%@include file="./pr_wr.jsp" %>
+<%@include file="./code/pr_wr.jsp" %>
 <!-- 중단 끝 -->
 <!-- 푸터 시작 -->
-<%@include file="./footer_login.jsp" %>
+<%@include file="./section/footer_login.jsp" %>
 <!-- 푸터 끝 -->
 </body>
 </html>

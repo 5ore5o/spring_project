@@ -57,9 +57,8 @@
     </div>
 </section>
 </main>
-<% Date prtoday=new Date(); %>
 <script type="module">
-import {caset}from "./js/pd_ca.js?v=<%=prtoday%>";
+import {caset}from "./js/pd_ca.js";
 
 document.querySelector("#ca_list").addEventListener("click",function(){
 new caset().catelist();

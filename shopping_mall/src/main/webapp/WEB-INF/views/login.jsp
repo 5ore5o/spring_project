@@ -12,13 +12,13 @@
   </head>
 <body>
 <!-- 상단 시작 -->
-<%@include file="./header_mall.jsp" %>
+<%@include file="./section/header_mall.jsp" %>
 <!-- 상단 끝 -->
 <!-- 중단 시작 -->
-<%@include file="./mall_login.jsp" %>
+<%@include file="./code/mall_login.jsp" %>
 <!-- 중단 끝 -->
 <!-- 푸터 시작 -->
-<%@include file="./footer_mall.jsp" %>
+<%@include file="./section/footer_mall.jsp" %>
 <!-- 푸터 끝 -->
 </body>
 </html>

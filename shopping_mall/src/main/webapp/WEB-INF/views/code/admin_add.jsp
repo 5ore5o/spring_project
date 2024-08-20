@@ -59,9 +59,8 @@
             </span>
         </div>
     </section>
-<%Date today2 = new Date(); %>
 <script type="module">
-import {login}from "./js/addouble.js?v=<%=today2%>";
+import {login}from "./js/addouble.js";
 
 document.querySelector("#adbtn").addEventListener("click",function(){
 new login().login_check();

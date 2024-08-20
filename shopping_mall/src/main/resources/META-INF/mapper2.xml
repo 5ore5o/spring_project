@@ -60,6 +60,12 @@ select count(*) from pd_set where pd_code=#{pd_code}
 select count(*) from admininfo where adid=#{adid}
 </select>
 
+<!-- insert -->
+<insert id="pd_in">
+insert into pd_set (pd_idx,pd_lname,pd_code,pd_name,pd_addinfo,pd_cash,pd_dcr,pd_dcp,
+pd_ea,pd_oyn,pd_xyn,pdfile,pd_info,pddate) values 
+('0',#{})
+</insert>
 
 <insert id="cawr_in">
 insert into ca_set (ca_idx,cacode,lcode,lname,ca_use,cadate) values 

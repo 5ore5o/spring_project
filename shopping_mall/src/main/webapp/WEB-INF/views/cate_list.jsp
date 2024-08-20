@@ -21,13 +21,13 @@
 </head>
 <body>
 <!-- 상단 시작 -->
-<%@include file="./header_login.jsp" %>
+<%@include file="./section/header_login.jsp" %>
 <!-- 상단 끝 -->
 <!-- 중단 시작 -->
-<%@include file="./cate_li.jsp" %>
+<%@include file="./code/cate_li.jsp" %>
 <!-- 중단 끝 -->
 <!-- 푸터 시작 -->
-<%@include file="./footer_login.jsp" %>
+<%@include file="./section/footer_login.jsp" %>
 <!-- 푸터 끝 -->
 </body>
 </html>

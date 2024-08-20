@@ -18,13 +18,13 @@
 </head>
 <body>
 <!-- 상단 시작 -->
-<%@include file="./header_add.jsp" %>
+<%@include file="./section/header_add.jsp" %>
 <!-- 상단 끝 -->
 <!-- 중단 시작 -->
-<%@include file="./admin_add.jsp" %>
+<%@include file="./code/admin_add.jsp" %>
 <!-- 중단 끝 -->
 <!-- 푸터 시작 -->
-<%@include file="./footer_add.jsp" %>
+<%@include file="./section/footer_add.jsp" %>
 <!-- 푸터 끝 -->
 </body>
 </html>
