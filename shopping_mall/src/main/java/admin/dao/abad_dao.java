@@ -1,4 +1,4 @@
-package admin;
+package admin.dao;
 
 import lombok.Getter;
 import lombok.Setter;

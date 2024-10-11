@@ -1,4 +1,4 @@
-package admin;
+package admin.controller;
 
 import java.io.PrintWriter;
 import java.util.ArrayList;
@@ -16,6 +16,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+
+import admin.dao.abad_dao;
+import admin.dao.adcate_dao;
+import admin.dao.adpd_dao;
+import admin.dao.adset_dao;
+import admin.service.abad_module;
 
 @Controller
 public class abadmin_controller{

@@ -17,7 +17,6 @@ request.setAttribute("pd_code", pd_code);
 <section>
 <p>상품 등록 페이지</p>
 <form id="pd_frm" enctype="multipart/form-data">
-<input type="hidden" name="pd_idx">
 <div class="product_insert">
     <ul>
         <li>대메뉴 카테고리</li>

@@ -9,13 +9,13 @@
     <div class="cate_insert">
         <ul>
             <li>분류코드</li>
-            <li><input type="text" class="cate_input1" name="cacode" id="cacode"></li>
+            <li><input type="text" class="cate_input1" name="cacode" id="cacode" maxlength="5"></li>
             <li>※ 분류코드는 대메뉴 코드와 소메뉴 코드를 합쳐서 자동 입력 됩니다.</li>
         </ul>
         <ul>
             <li>대메뉴 코드</li>
             <li>
-                <input type="text" class="cate_input2" list="lg_menu" name="lcode">
+                <input type="text" class="cate_input2" list="lg_menu" name="lcode" maxlength="5">
                 <datalist id="lg_menu">
 
                     <option>01</option>
@@ -26,7 +26,7 @@
         </ul>
         <ul>
             <li>대메뉴명</li>
-            <li><input type="text" class="cate_input3" name="lname"> <label><!--<input type="checkbox" style="margin-left:10px; margin-right: 5px;">대메뉴만 생성</label>--></li>
+            <li><input type="text" class="cate_input3" name="lname" maxlength="20"> <label><!--<input type="checkbox" style="margin-left:10px; margin-right: 5px;">대메뉴만 생성</label>--></li>
             <li>※ 소메뉴만 등록시 대메뉴 코드와 대메뉴명은 무조건 입력 되어야 합니다.</li>
         </ul>
         <ul>

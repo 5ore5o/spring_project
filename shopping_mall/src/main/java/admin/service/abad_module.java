@@ -1,4 +1,4 @@
-package admin;
+package admin.service;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -13,6 +13,11 @@ import javax.servlet.http.HttpSession;
 import org.apache.ibatis.reflection.ArrayUtil;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
+
+import admin.dao.abad_dao;
+import admin.dao.adcate_dao;
+import admin.dao.adpd_dao;
+import admin.dao.adset_dao;
 
 @Repository("abmodule") //모듈이름
 public class abad_module extends passwd_sh{
