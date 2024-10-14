@@ -31,6 +31,10 @@ order by adidx desc
 </choose>
 </select>
 
+<delete id="pd_del">
+delete from pd_set where FIND_IN_SET(pd_idx,#{pd_idx})
+</delete>
+
 <delete id="cate_del">
 delete from ca_set where FIND_IN_SET(ca_idx,#{ca_idx})
 </delete>
@@ -38,6 +42,23 @@ delete from ca_set where FIND_IN_SET(ca_idx,#{ca_idx})
 <update id="adYN_update" parameterType="abaddao">
 update admininfo set adYN=#{adYN} where adidx=#{adidx}
 </update>
+
+<select id="pd_search" resultType="adpddao" parameterType="Map">
+select * from pd_set 
+<where>
+<if test='search_pdpart=="1"'>
+pd_name like concat('%',#{search_pdword},'%')
+</if>
+<if test='search_pdpart=="2"'>
+pd_code like concat('%',#{search_pdword},'%')
+</if>
+</where>
+ order by pd_idx desc;
+</select>
+
+<select id="product_list" resultType="adpddao">
+select pd_idx,pd_code,pdfile,pd_name,pd_lname,pd_cash,pd_dcp,pd_dcr,pd_ea,pd_oyn,pd_xyn from pd_set
+</select>
 
 <select id="lname_li" resultType="String">
 select lname from ca_set
@@ -67,6 +88,10 @@ pd_ea,pd_oyn,pd_xyn,pdfile,pd_info,pddate) values
 ('0',#{})
 </insert>
 -->
+<insert id="product_in">
+insert into pd_set (pd_idx,pd_lname,pd_code,pd_name,pd_addinfo,pd_cash,pd_dcr,pd_dcp,pd_ea,pd_oyn,pd_xyn,pdfile,pd_info,pddate)
+ values ('0',#{pd_lname},#{pd_code},#{pd_name},#{pd_addinfo},#{pd_cash},#{pd_dcr},#{pd_dcp},#{pd_ea},#{pd_oyn},#{pd_xyn},#{pdfileString},#{pd_info},now())
+</insert>
 
 <insert id="cawr_in">
 insert into ca_set (ca_idx,cacode,lcode,lname,ca_use,cadate) values 
