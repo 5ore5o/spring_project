@@ -1,4 +1,4 @@
-package admin.dao;
+package admin;
 
 import java.util.List;
 
@@ -15,4 +15,5 @@ public class adpd_dao {
 	String pd_lname,pd_code,pd_name,pd_addinfo,pd_oyn,pd_xyn,pd_info,pddate;
 	
 	private List<MultipartFile> pdfile;
+	private String pdfileString;
 }

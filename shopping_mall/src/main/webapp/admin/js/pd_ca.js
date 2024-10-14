@@ -27,8 +27,8 @@ catein(){
 	else if(cawr_frm.lcode.value==""||cawr_frm.lcode.value.length < 2|| isNaN(cawr_frm.lcode.value)){
 		alert("대메뉴 코드를 최소 2자리 이상의 숫자로 입력하세요");
 	}
-	else if(cawr_frm.lname.value==""||!cawr_frm.lname.value.match(/^[a-zA-Z가-힣\s]+$/)){
-		alert("대메뉴명을 한글,또는 영어로 입력해주세요.");
+	else if(cawr_frm.lname.value==""||!cawr_frm.lname.value.match(/^[a-zA-Z가-힣\s\/]+$/)){
+		alert("대메뉴명을 한글,영어 또는 슬래시(/)로 입력해주세요.");
 	}
 	else{
 	cawr_frm.method="post";
@@ -96,6 +96,21 @@ pdcate(){
 back(){
 	location.href="./product_list.do";
 }
+productsearch(search_pdword){
+	
+	const pdsearch_frm = document.querySelector("#pdsearch_frm");
+	const searchWord = document.querySelector("input[name='search_pdword']").value;
+	
+	if(searchWord==""){
+		alert("검색할 단어를 입력하세요!");
+		console.log(searchWord);
+	}else{
+	pdsearch_frm.method="get";		
+	pdsearch_frm.action="./product_list.do";
+	pdsearch_frm.submit();
+	}
+}
+
 productin(){
 var pdfile = document.getElementsByName("pdfile");
 var count = 0;
@@ -123,6 +138,52 @@ for(let f=0; f<pdfile.length;f++){
 	pd_frm.submit();
 	}
 }
+
+pd_all(pd_idx){
+var w=0;
+while(w<pd_idx.length){
+	pd_idx[w].checked=pdall.checked;
+	w++;
+}
+}
+
+each_pdck(pdbox,pd_idx){
+if(!pdbox.checked){
+pdall.checked=false;
+}else{
+var allchecked=true;
+var w=0;
+while(w<pd_idx.length){
+	if(!pd_idx[w].checked){
+		allchecked=false;
+	}
+	w++;
+}
+}
+pdall.checked=allchecked;
+}
+
+pd_del(pd_idx){
+var w=0;
+var count=0;
+while(w<pd_idx.length){
+	if(pd_idx[w].checked==true){
+		count++;
+	}
+	w++;
+}
+if(count>0){
+	if(confirm("해당 데이터는 더이상 복구되지 않습니다.")){
+		pdset_frm.method="post";
+		pdset_frm.action="./del_pdck.do";
+		pdset_frm.submit();
+	}
+}
+else{
+	alert("선택한 데이터가 1개 이상 체크되어야 합니다.");
+}	
+}
+
 }
 
 $(function(){

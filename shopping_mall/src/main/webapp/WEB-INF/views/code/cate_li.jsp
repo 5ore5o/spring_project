@@ -6,17 +6,19 @@
     <section>    
 <p>카테고리관리 페이지</p>
 <div class="subpage_view">
+	<cr:if test="${empty caresult}">
     <span>등록된 카테고리 0건</span>
-    <span>
+    </cr:if>    
         <form id="casearch_frm">
+    <span>
         <select class="p_select1" name="search_catepart">
             <option value="1">카테고리명</option>
             <option value="2">카테고리코드</option>
         </select>
         <input type="text" name="search_cateword" value="${search_cateword}" class="p_input1" placeholder="검색어를 입력해 주세요">
         <input type="submit" value="검색" title="카테고리 검색" class="p_submit" id="catesearch">
-        </form>
     </span>
+        </form>
 </div>
 <form id="cateset_frm">
 <div class="subpage_view2">
@@ -70,7 +72,7 @@
 </section>
 </main>
 <script type="module">
-import {caset}from "./js/pd_ca.js";
+import {caset}from "./js/pd_ca.js?v=2";
 
 const ca_idx= document.getElementsByName("ca_idx");
 const search_cateword= document.getElementsByName("search_cateword");

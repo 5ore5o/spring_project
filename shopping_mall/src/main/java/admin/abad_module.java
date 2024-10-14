@@ -1,4 +1,4 @@
-package admin.service;
+package admin;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -14,23 +14,12 @@ import org.apache.ibatis.reflection.ArrayUtil;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
-import admin.dao.abad_dao;
-import admin.dao.adcate_dao;
-import admin.dao.adpd_dao;
-import admin.dao.adset_dao;
-
 @Repository("abmodule") //모듈이름
 public class abad_module extends passwd_sh{
 
 	
 	@Resource(name="template2")
 	private SqlSessionTemplate tm2;
-	//lname 출력
-	public List<adcate_dao> lnamedata(){
-		List<adcate_dao> lnameli= new ArrayList<adcate_dao>();
-		lnameli=tm2.selectList("abadminDB.lname_li");
-		return lnameli;
-	}
 	
 	//카테고리 삭제
 	public int cate_del(String ca_idx) {
@@ -100,42 +89,6 @@ public class abad_module extends passwd_sh{
 	}
 	
 	
-	//pdcode 중복체크
-	public int pd_codeck(String pd_code,adpd_dao pddao) {
-		Integer pdck_result= tm2.selectOne("abadminDB.pdcode_check",pd_code);
-		if(pdck_result<0 && pd_code != null&& pddao.getPd_code() !=null) {
-		
-		return pdck_result;
-		}
-		return 0;
-	}
-	/*
-	public String pd_codeck(String pd_code,adpd_dao pddao) {
-		Integer pdck_result= tm2.selectOne("abadminDB.pdcode_check",pd_code);
-		if(pdck_result>0 && pd_code != null&& pddao.getPd_code() !=null) {
-		String new_pdcode=repdcode();
-		pddao.setPd_code(new_pdcode);
-		
-		return new_pdcode;
-		}
-		return pd_code;
-	}
-	public String repdcode() {
-	String new_pdcode="";
-	Random rd= new Random();
-	Boolean pddup=true;
-	while(pddup) {
-		new_pdcode="";
-		for(int f=0;f<7;f++) {
-			new_pdcode += rd.nextInt(10);
-		}
-		Integer result= (Integer)tm2.selectOne("abadminDB.pdcode_check", new_pdcode);
-		pddup=result>0;
-	}
-	return new_pdcode;
-	}
-	*/
-	
 	//id 중복체크
 	public int ab_idck(String adid,abad_dao abdao) {
 		Integer idck_result= tm2.selectOne("abadminDB.id_check",adid);
@@ -146,15 +99,15 @@ public class abad_module extends passwd_sh{
 	}
 	
 	//카테고리 등록 페이지
-		public int catewr_in(adcate_dao catedao,String cacode,String lname) {
-			int catewrin=tm2.insert("abadminDB.cawr_in",catedao);
-			if(catewrin>0) {
-			if(!catedao.getCacode().equals(cacode) && !catedao.getLname().equals(lname)) {
-				return catewrin;
-			}
-			return catewrin; 
-			}
-			return 0;
+	public int catewr_in(adcate_dao catedao,String cacode,String lname) {
+		int catewrin=tm2.insert("abadminDB.cawr_in",catedao);
+		if(catewrin>0) {
+		if(!catedao.getCacode().equals(cacode) && !catedao.getLname().equals(lname)) {
+			return catewrin;
+		}
+		return catewrin; 
+		}
+		return 0;
 	}
 	
 	//쇼핑몰 설정 저장

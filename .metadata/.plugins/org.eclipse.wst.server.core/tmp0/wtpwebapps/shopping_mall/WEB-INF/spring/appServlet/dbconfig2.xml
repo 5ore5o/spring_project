@@ -19,7 +19,7 @@
 	<context:annotation-config/>
 	<bean id="dbinfo2" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
 	<property name="driverClassName" value="com.mysql.cj.jdbc.Driver"/>
-	<property name="url" value="jdbc:mysql://localhost:3306/abshop"/>
+	<property name="url" value="jdbc:mysql://34.64.213.166:3306/abshop"/>
 	<property name="username" value="abadmin"/> <!-- 프로젝트시작하면 hana쓰면 안된다. 절단남 -->
 	<property name="password" value="adcd1234"/>
 	</bean>

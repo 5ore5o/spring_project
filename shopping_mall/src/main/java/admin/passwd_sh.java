@@ -1,4 +1,4 @@
-package admin.service;
+package admin;
 
 import java.security.MessageDigest;
 

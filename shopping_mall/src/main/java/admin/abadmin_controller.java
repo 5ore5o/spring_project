@@ -1,4 +1,4 @@
-package admin.controller;
+package admin;
 
 import java.io.PrintWriter;
 import java.util.ArrayList;
@@ -17,12 +17,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import admin.dao.abad_dao;
-import admin.dao.adcate_dao;
-import admin.dao.adpd_dao;
-import admin.dao.adset_dao;
-import admin.service.abad_module;
-
 @Controller
 public class abadmin_controller{
 	
@@ -32,13 +26,6 @@ public class abadmin_controller{
 	
 	PrintWriter pw= null;
 	
-	//lname 리스트,신규 상품등록 페이지
-	@GetMapping("/admin/product_write.do")
-	public String productwriter(Model lnamem) {
-		List<adcate_dao> lnameli =am.lnamedata();
-		lnamem.addAttribute("lnameli",lnameli);
-		return "product_write";
-	}
 	
 	//카테고리 데이터 삭제
 	@PostMapping("/admin/del_cateck.do")
@@ -181,24 +168,6 @@ public class abadmin_controller{
 		this.pw.close();
 		return null;
 	}
-	//상품코드 중복체크
-	@PostMapping("/admin/pdcode_ck.do")
-	public String pdcodecheck(HttpServletResponse res,String pd_code,adpd_dao pddao) throws Exception {
-		res.setContentType("application/json;charset=utf-8");
-		this.pw=res.getWriter();
-		String pdckresult="";
-		Integer pdck_result=am.pd_codeck(pd_code,pddao);
-	if(pdck_result>0) {
-		pdckresult="no";
-	}
-	else{
-		pdckresult="yes";
-	}
-	this.pw.print(pdckresult);
-	this.pw.close();
-	
-	return null;
-	}
 	/*
 	public String pdcodecheck(HttpServletResponse res,String pd_code,adpd_dao pddao) throws Exception {
 		res.setContentType("application/json;charset=utf-8");
@@ -243,12 +212,6 @@ public class abadmin_controller{
 		
 	return null;
 	} 
-	//상품 등록
-	@PostMapping("/admin/pd_in.do")
-	public String product_in(HttpServletResponse res,adpd_dao pddao) {
-	
-		return null;
-	}
 	
 	//카테고리 등록
 	@PostMapping("/admin/cate_in.do")
@@ -360,12 +323,7 @@ public class abadmin_controller{
 	public String catewrite() {
 		return "cate_write";
 	}
-	
-	//쇼핑몰 상품관리 페이지
-	@GetMapping("/admin/product_list.do")
-	public String productlist(){
-		return "product_list";
-	}
+
 	//쇼핑몰 기본설정 페이지
 	@GetMapping("/admin/admin_siteinfo.do")
 	public String homeset(){
