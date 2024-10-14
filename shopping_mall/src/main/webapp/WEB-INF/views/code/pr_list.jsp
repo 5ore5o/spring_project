@@ -40,7 +40,11 @@
     <ul>
         <li><input type="checkbox" value="${pdli.pd_idx}" name="pd_idx"></li>
         <li>${pdli.pd_code}</li>
-        <li>${pdli.pdfile}</li>
+       
+       <li class="ellipsis-text" title="${pdli.pdfile}">
+            ${pdli.pdfile}
+ 	   </li>
+    
         <li>${pdli.pd_name}</li>
         <li>${pdli.pd_lname}</li>
         <li>${pdli.pd_cash}</li>
@@ -106,5 +110,4 @@ document.querySelectorAll("[name='pd_idx']").forEach(function(pdbox){pdbox.addEv
 new pdset().each_pdck(pdbox ,pd_idx);
 });
 });
-
 </script>

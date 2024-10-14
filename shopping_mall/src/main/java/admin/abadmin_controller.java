@@ -2,7 +2,9 @@ package admin;
 
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.servlet.RequestDispatcher;
@@ -83,21 +85,36 @@ public class abadmin_controller{
 	@GetMapping("/admin/cate_list.do")
 	public String calist_search(Model cam,HttpServletResponse res,
 			@RequestParam(defaultValue="",required=false)String search_catepart,
-			@RequestParam(defaultValue="",required=false)String search_cateword) throws Exception {
-		
+			@RequestParam(defaultValue="",required=false)String search_cateword,
+			@RequestParam(defaultValue = "1") int page,
+			@RequestParam(defaultValue = "5") int size)
+			throws Exception {
 		res.setContentType("text/html;charset=utf-8");
 		this.pw=res.getWriter();
 		
+		int offset = (page - 1) * size;
+		Map<String, Object> params = new HashMap<>();
+	    params.put("search_part", search_catepart);
+	    params.put("search_word", search_cateword);
+	    params.put("size", size);
+	    params.put("offset", offset);
+	    
 		List<adcate_dao> caresult =null;
 		try {
 			if(search_catepart.equals("")&& search_cateword.equals("")) {
-				caresult = am.cadata();
+				caresult = am.cadata(params);
 			}else {
 				cam.addAttribute("search_part",search_catepart);
 				cam.addAttribute("search_word",search_cateword);
-				caresult = am.cadata(search_catepart,search_cateword);
+				caresult = am.cadata(params);
 			}
 			cam.addAttribute("caresult",caresult);
+			
+			// 총 카테고리 수 가져오기
+	        int totalCount = am.getTotalCategoryCount(search_catepart, search_cateword);
+	        cam.addAttribute("totalCount", totalCount);
+	        cam.addAttribute("currentPage", page);
+	        cam.addAttribute("totalPages", (int) Math.ceil((double) totalCount / size));
 			
 		}catch(Exception e) {
 			this.pw.print("<script>"

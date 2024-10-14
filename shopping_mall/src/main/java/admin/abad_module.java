@@ -26,21 +26,27 @@ public class abad_module extends passwd_sh{
 		int catedel_result=this.tm2.delete("abadminDB.cate_del",ca_idx);
 		return catedel_result;
 	}
-	//카테고리 검색
-	public List<adcate_dao> cadata(String search_catepart,String search_cateword){
-		
-		List<adcate_dao> cd = new ArrayList<adcate_dao>();
-		Map<String, String> cam = new HashMap<String, String>();
-		cam.put("search_catepart", search_catepart);
-		cam.put("search_cateword", search_cateword);
-		cd = tm2.selectList("abadminDB.cate_search",cam);
-		return cd;
+	
+	// 카테고리 검색 및 페이징
+	public List<adcate_dao> cadata(Map<String, Object> params) {
+	    List<adcate_dao> cd = new ArrayList<>();
+	    cd = tm2.selectList("abadminDB.cate_search", params);
+	    return cd;
 	}
-	//카테고리 리스트 view
-	public List<adcate_dao> cadata(){
-		List<adcate_dao> cd= new ArrayList<adcate_dao>();
-		cd=tm2.selectList("abadminDB.cate_listview");
-		return cd;
+
+	// 전체 카테고리 수를 가져오는 메서드 추가
+	public int getTotalCategoryCount(String search_catepart, String search_cateword) {
+	    Map<String, String> cam = new HashMap<>();
+	    cam.put("search_catepart", search_catepart);
+	    cam.put("search_cateword", search_cateword);
+	    return tm2.selectOne("abadminDB.total_category_count", cam);
+	}
+
+	// 전체 카테고리 리스트 뷰
+	public List<adcate_dao> cadata() {
+	    List<adcate_dao> cd = new ArrayList<>();
+	    cd = tm2.selectList("abadminDB.cate_listview");
+	    return cd;
 	}
 	
 	//관리자 승인,해제

@@ -14,6 +14,6 @@ public class adpd_dao {
 	Integer pd_idx,pd_cash,pd_dcr,pd_dcp,pd_ea;
 	String pd_lname,pd_code,pd_name,pd_addinfo,pd_oyn,pd_xyn,pd_info,pddate;
 	
-	private List<MultipartFile> pdfile;
-	private String pdfileString;
+	private List<MultipartFile> pdfilelist;
+	private String pdfile;
 }

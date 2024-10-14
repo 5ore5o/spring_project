@@ -77,16 +77,11 @@ public class product_controller {
 		return "product_list";
 	}
 	
-	@Value("${file.upload-dir}")
-	 private String uploadDir;
-	
 	//상품 등록
 	@PostMapping("/admin/pd_in.do")
 	public String product_in(HttpServletResponse res,adpd_dao pddao) throws Exception {
 		res.setContentType("text/html;charset=utf-8");
 		this.pw = res.getWriter();
-		
-		System.out.println("상품등록호출");
 		
 		try {
 	        int productInResult = pm.product_in(pddao);
@@ -101,15 +96,12 @@ public class product_controller {
 	                   + "alert('데이터 중복 또는 오류로 인해 등록되지 않았습니다.');"
 	                   + "history.go(-1);"
 		               + "</script>");
-	            System.out.println(uploadDir);
-	           
 		    }
 		} catch (Exception e) {
 		        this.pw.print("<script>"
 		              + "alert('DB 오류 또는 데이터 중복으로 인해 등록되지 않았습니다.');"
 		              + "history.go(-1);"
 		              + "</script>");
-		        System.out.println(e);
 		} finally {
 		     if (this.pw != null) {
 		        this.pw.close();

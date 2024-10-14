@@ -54,19 +54,17 @@ public class product_module {
 	 
 	//상품 등록
 	public int product_in(adpd_dao pddao) {
-		List<MultipartFile> pdfileList = pddao.getPdfile();
+		List<MultipartFile> pdfileList = pddao.getPdfilelist();
 		List<String> fileNames = new ArrayList<>();          // 파일명을 저장할 리스트
 
         for (MultipartFile file : pdfileList) {
             if (!file.isEmpty()) {
                 try {
                     String originalFileName = file.getOriginalFilename();
-                    pddao.setPdfileString(originalFileName);
                     String uniqueFileName = UUID.randomUUID().toString() + "_" + originalFileName;
                     String filePath = uploadDir + "/" + uniqueFileName;
 
                     Path path = Paths.get(filePath);
-                    Files.copy(file.getInputStream(), path);
                     
                     //디렉토리 없을 때 생성 
                     Path parentDir = path.getParent();
@@ -74,7 +72,9 @@ public class product_module {
                         Files.createDirectories(parentDir);
                     }
                     
-                    fileNames.add(uniqueFileName);
+                    Files.copy(file.getInputStream(), path);
+                    //DB원본파일명저장
+                    fileNames.add(originalFileName);
                 } catch (IOException e) {
                 	e.printStackTrace();
                     return 0;
@@ -83,10 +83,9 @@ public class product_module {
         }
 		
 		String pdfileString = String.join(",", fileNames);
-	    pddao.setPdfileString(pdfileString); 
+	    pddao.setPdfile(pdfileString); 
 		int result = tm2.insert("abadminDB.product_in",pddao);
 		if (result > 0) {
-			System.out.println(result);
 	        return result;
 	    } else {
 	        return 0;
