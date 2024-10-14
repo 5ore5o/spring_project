@@ -50,4 +50,8 @@
 	<beans:property name="maxInMemorySize" value="2097152"/>
 	</beans:bean>
 	
+	<beans:bean id="propertyConfigurer" class="org.springframework.context.support.PropertySourcesPlaceholderConfigurer">
+    <beans:property name="location" value="classpath:application.properties" />
+    </beans:bean>
+	
 </beans:beans>

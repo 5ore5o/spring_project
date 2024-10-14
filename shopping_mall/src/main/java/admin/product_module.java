@@ -63,15 +63,20 @@ public class product_module {
                     String originalFileName = file.getOriginalFilename();
                     pddao.setPdfileString(originalFileName);
                     String uniqueFileName = UUID.randomUUID().toString() + "_" + originalFileName;
-                    String filePath = uploadDir + File.separator + uniqueFileName;
+                    String filePath = uploadDir + "/" + uniqueFileName;
 
                     Path path = Paths.get(filePath);
                     Files.copy(file.getInputStream(), path);
-
+                    
+                    //디렉토리 없을 때 생성 
+                    Path parentDir = path.getParent();
+                    if (Files.notExists(parentDir)) {
+                        Files.createDirectories(parentDir);
+                    }
+                    
                     fileNames.add(uniqueFileName);
-
                 } catch (IOException e) {
-                    e.printStackTrace();
+                	e.printStackTrace();
                     return 0;
                 }
             }
@@ -81,6 +86,7 @@ public class product_module {
 	    pddao.setPdfileString(pdfileString); 
 		int result = tm2.insert("abadminDB.product_in",pddao);
 		if (result > 0) {
+			System.out.println(result);
 	        return result;
 	    } else {
 	        return 0;
