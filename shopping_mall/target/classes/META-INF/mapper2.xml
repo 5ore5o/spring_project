@@ -57,6 +57,18 @@ delete from ca_set where FIND_IN_SET(ca_idx,#{ca_idx})
 update admininfo set adYN=#{adYN} where adidx=#{adidx}
 </update>
 
+<update id="termspolicymodifyTerms">
+UPDATE terms_policy SET terms_of_service = #{terms_of_service}, date = NOW()
+</update>
+
+<update id="termspolicymodifyPrivacy">
+UPDATE terms_policy SET privacy_policy = #{privacy_policy}, date = NOW()
+</update>
+
+<select id="termspolicycheck" resultType="int">
+select count(*) from terms_policy
+</select>
+
 <select id="pd_search" resultType="adpddao" parameterType="Map">
 select * from pd_set 
 <where>
@@ -108,7 +120,14 @@ select count(*) from pd_set where pd_code=#{pd_code}
 select count(*) from admininfo where adid=#{adid}
 </select>
 
-<insert id="notice_save">
+
+
+<insert id="termspolicy_save">
+insert into terms_policy (terms_of_service,privacy_policy,date) values 
+(#{terms_of_service},#{privacy_policy},now())
+</insert>
+
+<insert id="noticesave" parameterType="admin.noticeDao">
 insert into adnotice (no_idx,noYN,notitle,adname,nofile,storedfile,noinfo,nodate,view_count) values 
 ('0',#{noYN},#{notitle},#{adname},#{nofile},#{storedfile},#{noinfo},now(),'0')
 </insert>

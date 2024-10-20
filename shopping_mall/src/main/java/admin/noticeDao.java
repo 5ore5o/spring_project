@@ -9,7 +9,7 @@ import lombok.Setter;
 @Setter
 public class noticeDao {
 
-	Integer no_idx,noYn,view_count;
+	Integer no_idx,noYN,view_count;
 	String notitle,adname,nofile,storedfile,noinfo,nodate;
 	
 	private MultipartFile nofiledata;

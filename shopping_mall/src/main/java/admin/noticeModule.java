@@ -25,12 +25,12 @@ public class noticeModule {
 	public int notice_in(noticeDao noticedao) {
 			MultipartFile file = noticedao.getNofiledata();
 			String originalFileName = null;
-		    String storedFileName = null;
+		    String uniqueFileName = null;
 
 			if (file != null && !file.isEmpty()) {
 			        try {
 			            originalFileName = file.getOriginalFilename();
-			            String uniqueFileName = UUID.randomUUID().toString() + "_" + originalFileName;
+			            uniqueFileName = UUID.randomUUID().toString() + "_" + originalFileName;
 			            String filePath = uploadDir + "/" + uniqueFileName;
 
 			            Path path = Paths.get(filePath);
@@ -41,13 +41,12 @@ public class noticeModule {
 			            }
 			            Files.copy(file.getInputStream(), path);
 			        } catch (IOException e) {
-			            e.printStackTrace();
 			            return 0;
 			        }
 			    }
 			
 			noticedao.setNofile(originalFileName);
-			noticedao.setStoredfile(storedFileName);
+			noticedao.setStoredfile(uniqueFileName);
 			int result = tm2.insert("abadminDB.noticesave",noticedao);
 			if (result > 0) {
 		        return result;

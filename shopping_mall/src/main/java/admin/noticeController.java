@@ -1,11 +1,12 @@
 package admin;
 
-import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.Map;
 
 import javax.annotation.Resource;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -18,11 +19,9 @@ public class noticeController {
 	@Resource(name="noticeModule")
 	private noticeModule nm;
 	
-	PrintWriter pw= null;
-	
-	@PostMapping("/admin/notice_save.do")
+	@PostMapping(value="/admin/notice_save.do",consumes = "multipart/form-data",produces = "application/json")
 	@ResponseBody
-	public Map<String, Object> saveNotice(
+	public ResponseEntity<Map<String, Object>> saveNotice(
 		   @RequestParam("noYN") String noYN,
 		   @RequestParam("notitle") String notitle,
 		   @RequestParam("adname") String adname,
@@ -33,24 +32,25 @@ public class noticeController {
         
         try {
             noticeDao noticedao = new noticeDao();
-            noticedao.setNoYn(Integer.parseInt(noYN));
+            noticedao.setNoYN(Integer.parseInt(noYN));
             noticedao.setNotitle(notitle);
             noticedao.setAdname(adname);
             noticedao.setNoinfo(noinfo);
-            noticedao.setNofiledata(nofile);
 
             int saveResult = nm.notice_in(noticedao);
             
             if (saveResult > 0) {
                 result.put("success", true);
+                return ResponseEntity.ok(result);
             } else {
                 result.put("success", false);
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(result);
             }
         } catch (Exception e) {
-            result.put("success", false);
+        	result.put("success", false);
             result.put("error", e.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(result);
         }
 
-        return result;
     }       
 }

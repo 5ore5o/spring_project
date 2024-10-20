@@ -41,7 +41,7 @@
 <ul class="ul_height">
     <li>공지내용</li>
     <li>
-        <textarea class="notice_input3" name="noinfo" placeholder="공지내용을 입력하세요!"></textarea>
+        <textarea class="notice_input3" name="noinfo" id="noinfo" placeholder="공지내용을 입력하세요!"></textarea>
     </li>
 </ul>
 </div>
@@ -61,4 +61,18 @@ new noset().backnoticelist();
 document.querySelector("#wrNoticesave").addEventListener("click",function(){
 new noset().savenotice();
 });
+</script>
+<script>
+ClassicEditor
+.create(document.querySelector('#noinfo'), {
+    removePlugins: ['CKEditor5Branding']
+})
+.then(editor => {
+    editor.ui.view.editable.element.style.height = '350px'; 
+    window.editorInstance = editor;
+})
+.catch(error => {
+    console.error(error);
+});
+
 </script>

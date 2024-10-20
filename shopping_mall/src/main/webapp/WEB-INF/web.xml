@@ -30,8 +30,12 @@
 	
 	<servlet-mapping>
 	    <servlet-name>appServlet</servlet-name>
-	    <url-pattern>/</url-pattern>
-	    <url-pattern>*.do</url-pattern>
+	    <url-pattern>/</url-pattern> <!-- 모든 URL을 처리 -->
+	</servlet-mapping>
+	
+	<servlet-mapping>
+	    <servlet-name>appServlet</servlet-name>
+	    <url-pattern>*.do</url-pattern> <!-- .do 확장자만 처리 -->
 	</servlet-mapping>
 
 	<!-- 한글깨짐 -->
