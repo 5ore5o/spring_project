@@ -64,11 +64,33 @@
 </div>
 <div class="subpage_view3">
     <ul class="pageing">
-        <li><img src="./ico/double_left.svg"></li>
-        <li><img src="./ico/left.svg"></li>
-        <li>1</li>
-        <li><img src="./ico/right.svg"></li>
-        <li><img src="./ico/double_right.svg"></li>
+        <li><a href="?page=1"
+        <cr:if test="${currentPage == 1}">style="pointer-events: none; opacity:0.5;"</cr:if>>
+        <img src="./ico/double_left.svg" style="width: 20px; height: 20px;">
+        </a>
+        </li>
+        
+        <li><a href="?page=${currentPage - 1}" 
+        <cr:if test="${currentPage <= 1}">style="pointer-events: none; opacity: 0.5;"</cr:if>>
+        <img src="./ico/left.svg" style="width: 20px; height: 20px;">
+        </a></li>
+        
+        <cr:forEach var="i" begin="${startPage}" end="${endPage}">
+            <li>
+                <a href="?page=${i}" <cr:if test="${i == currentPage}" >style="font-weight: bold; color:black; width: 20px; height: 20px;"</cr:if>>${i}</a> <!-- 현재 페이지는 강조 -->
+            </li>
+        </cr:forEach>
+        
+        <li><a href="?page=${currentPage + 1}" 
+        <cr:if test="${currentPage >= totalPages}">style="pointer-events: none; opacity: 0.5;"</cr:if>>
+        <img src="./ico/right.svg" style="width: 20px; height: 20px;">
+        </a></li>
+        
+        <li><a href="?page=${totalPages}" 
+        <cr:if test="${currentPage >= totalPages}">style="pointer-events: none; opacity:0.5;"</cr:if>>
+        <img src="./ico/double_right.svg" style="width: 20px; height: 20px;">
+        </a>
+        </li>
     </ul>
 </div>
 <div class="subpage_view4">

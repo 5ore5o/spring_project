@@ -1,4 +1,12 @@
 @charset "utf-8";
+.ellipsis-text {
+    white-space: nowrap;       /* 한 줄로 표시 (줄바꿈 방지) */
+    overflow: hidden;          /* 넘치는 텍스트 숨김 */
+    text-overflow: ellipsis;   /* 말줄임(...) 처리 */
+    display: block;
+    max-width: 150px;
+    font-size: 12px;
+}
 .subpage_view { 
     width: inherit;
     height: auto;

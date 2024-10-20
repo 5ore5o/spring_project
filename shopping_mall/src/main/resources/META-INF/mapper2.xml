@@ -67,7 +67,20 @@ pd_name like concat('%',#{search_pdword},'%')
 pd_code like concat('%',#{search_pdword},'%')
 </if>
 </where>
- order by pd_idx desc;
+ order by pd_idx desc Limit #{size} offset #{offset};
+</select>
+
+<!-- 총 상품 수 쿼리 -->
+<select id="total_product_count" resultType="int" parameterType="Map">
+SELECT COUNT(*) FROM pd_set 
+<where>
+<if test='search_catepart == "1"'>
+lname LIKE CONCAT('%', #{search_pdword}, '%')
+</if>
+<if test='search_catepart == "2"'>
+lcode LIKE CONCAT('%', #{search_pdword}, '%')
+</if>
+</where>
 </select>
 
 <select id="product_list" resultType="adpddao">
@@ -94,6 +107,11 @@ select count(*) from pd_set where pd_code=#{pd_code}
 <select id="id_check" parameterType="String" resultType="Integer">
 select count(*) from admininfo where adid=#{adid}
 </select>
+
+<insert id="notice_save">
+insert into adnotice (no_idx,noYN,notitle,adname,nofile,storedfile,noinfo,nodate,view_count) values 
+('0',#{noYN},#{notitle},#{adname},#{nofile},#{storedfile},#{noinfo},now(),'0')
+</insert>
 
 <insert id="product_in">
 insert into pd_set (pd_idx,pd_lname,pd_code,pd_name,pd_addinfo,pd_cash,pd_dcr,pd_dcp,pd_ea,pd_oyn,pd_xyn,pdfile,pd_info,pddate)

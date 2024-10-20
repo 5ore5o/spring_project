@@ -15,7 +15,6 @@
 	<!--해당 resources 태그는 특정 디렉토리를 설정하여 각종 속성파일을 로드 할 수 있도록 설정하는 보안 태그 입니다.-->
 	<resources mapping="/resources/**" location="/resources/" />
 	<resources mapping="/js/**" location="/js/"/>
-	<resources mapping="/pay/**" location="/pay/"/>
 
 	
 	<!-- css=>.map, .scss 이거 작동 안 되게하고, css만 작동되게 설정함 -->
@@ -41,7 +40,7 @@
 		<beans:property name="suffix" value=".jsp" />
 	</beans:bean>
 	
-	<context:component-scan base-package="com.abshop.www,admin,pay,mall" />
+	<context:component-scan base-package="=admin,mall" />
 	
 	<!-- File :이거 안 쓰면 파일 첨부 못한다 -->
 	<beans:bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">

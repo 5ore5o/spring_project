@@ -8,5 +8,6 @@
 	<typeAlias alias="adsetdao" type="admin.adset_dao"/>
 	<typeAlias alias="adcatedao" type="admin.adcate_dao"/>
 	<typeAlias alias="adpddao" type="admin.adpd_dao"/>
+	<typeAlias alias="noticeDao" type="admin.noticeDao"/>
 	</typeAliases>
 </configuration>

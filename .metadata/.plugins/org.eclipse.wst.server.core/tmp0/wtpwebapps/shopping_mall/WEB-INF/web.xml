@@ -22,17 +22,18 @@
 			<param-name>contextConfigLocation</param-name>
 			<param-value>
 			/WEB-INF/spring/appServlet/servlet-context.xml
-			/WEB-INF/spring/appServlet/dbconfig.xml
 			/WEB-INF/spring/appServlet/dbconfig2.xml
 			</param-value>
 		</init-param>
 		<load-on-startup>1</load-on-startup>
 	</servlet>
-		
+	
 	<servlet-mapping>
-		<servlet-name>appServlet</servlet-name>
-		<url-pattern>/</url-pattern>
+	    <servlet-name>appServlet</servlet-name>
+	    <url-pattern>/</url-pattern>
+	    <url-pattern>*.do</url-pattern>
 	</servlet-mapping>
+
 	<!-- 한글깨짐 -->
 
 	<filter>

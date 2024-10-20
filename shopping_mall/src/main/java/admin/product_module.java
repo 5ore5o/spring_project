@@ -1,6 +1,5 @@
 package admin;
 
-import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -30,19 +29,22 @@ public class product_module {
 		return pddel_result;
 	}
 	
-	//상품 검색
-	public List<adpd_dao> pddata(String search_pdpart, String search_pdword){
-		List<adpd_dao> pdlist= new ArrayList<adpd_dao>();
-		Map<String, String> pdm =new HashMap<String, String>();
-		
-		pdm.put("search_pdpart", search_pdpart);
-		pdm.put("search_pdword", search_pdword);
-		
-		pdlist=tm2.selectList("abadminDB.pd_search",pdm);
-		return pdlist;
+	//상품 검색 및 페이징
+	public List<adpd_dao> pddata(Map<String, Object> params) {
+		  List<adpd_dao> pd = new ArrayList<>();
+		  pd = tm2.selectList("abadminDB.pd_search", params);
+		  return pd;
 	}
 	
-	//상품 리스트
+	//전체 상품 수를 가져오는 메서드 추가
+	public int getTotalProductCount(String search_pdpart, String search_pdword) {
+		   Map<String, String> pdm = new HashMap<>();
+		   pdm.put("search_pdpart", search_pdpart);
+		   pdm.put("search_pdword", search_pdword);
+		   return tm2.selectOne("abadminDB.total_product_count", pdm);
+	}
+	
+	//전체 상품 리스트
 	public List<adpd_dao> pddata(){
 		List<adpd_dao> pdlist= new ArrayList<adpd_dao>();
 		pdlist=tm2.selectList("abadminDB.product_list");

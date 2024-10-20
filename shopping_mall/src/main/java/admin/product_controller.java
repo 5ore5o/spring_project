@@ -1,7 +1,9 @@
 package admin;
 
 import java.io.PrintWriter;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;
@@ -51,22 +53,51 @@ public class product_controller {
 	@GetMapping("/admin/product_list.do")
 	public String product_list(Model m, HttpServletResponse res,
 			@RequestParam(defaultValue="",required=false)String search_pdpart,
-			@RequestParam(defaultValue="",required=false)String search_pdword) throws Exception {
+			@RequestParam(defaultValue="",required=false)String search_pdword,
+			@RequestParam(defaultValue = "1") int page,
+			@RequestParam(defaultValue = "5") int size) 
+			throws Exception {
 		
 		res.setContentType("text/html;charset=utf-8");
 		this.pw=res.getWriter();
 		
-		List<adpd_dao> productlist= null;
+		int offset = (page - 1) * size;
+		Map<String, Object> params = new HashMap<>();
+	    params.put("search_pdpart", search_pdpart);
+	    params.put("search_pdword", search_pdword);
+	    params.put("size", size);
+	    params.put("offset", offset);
 		
+		List<adpd_dao> productlist= null;
 		try {
 			if(search_pdpart.equals("")&& search_pdword.equals("")) {
 				productlist = pm.pddata();
 			}else {
 				m.addAttribute("search_pdpart",search_pdpart);
 				m.addAttribute("search_pdword",search_pdword);
-				productlist= pm.pddata(search_pdpart, search_pdword);
+				productlist= pm.pddata(params);
 			}
 			m.addAttribute("productlist",productlist);
+			
+			// 총 상품 수 가져오기
+	        int totalCount = pm.getTotalProductCount(search_pdpart, search_pdword);
+	        m.addAttribute("totalCount", totalCount);
+	        
+	        int totalPages = (int) Math.ceil((double) totalCount / size);
+	        int pageBlock = 5; // 한 번에 표시할 페이지 수
+	        int startPage = ((page - 1) / pageBlock) * pageBlock + 1;
+	        int endPage = Math.min(startPage + pageBlock - 1, totalPages);
+	        
+	        if (endPage > totalPages) {
+	            endPage = totalPages;
+	        }
+	        
+	        m.addAttribute("currentPage", page);
+	        m.addAttribute("totalPages", (int) Math.ceil((double) totalCount / size));
+	        m.addAttribute("startPage", startPage);
+	        m.addAttribute("endPage", endPage);
+	        
+	        
 		}catch(Exception e) {
 			this.pw.print("<script>"
 					+ "alert('DB오류로 인해 출력되지 않았습니다');"

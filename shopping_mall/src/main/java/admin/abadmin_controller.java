@@ -1,7 +1,6 @@
 package admin;
 
 import java.io.PrintWriter;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -16,7 +15,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
@@ -113,9 +111,21 @@ public class abadmin_controller{
 			// 총 카테고리 수 가져오기
 	        int totalCount = am.getTotalCategoryCount(search_catepart, search_cateword);
 	        cam.addAttribute("totalCount", totalCount);
+	        
+	        int totalPages = (int) Math.ceil((double) totalCount / size);
+	        int pageBlock = 5; // 한 번에 표시할 페이지 수
+	        int startPage = ((page - 1) / pageBlock) * pageBlock + 1;
+	        int endPage = Math.min(startPage + pageBlock - 1, totalPages);
+	        
+	        if (endPage > totalPages) {
+	            endPage = totalPages;
+	        }
+	        
 	        cam.addAttribute("currentPage", page);
 	        cam.addAttribute("totalPages", (int) Math.ceil((double) totalCount / size));
-			
+	        cam.addAttribute("startPage", startPage);
+	        cam.addAttribute("endPage", endPage);
+	        
 		}catch(Exception e) {
 			this.pw.print("<script>"
 					+ "alert('DB오류로 인해 출력되지 않았습니다');"
