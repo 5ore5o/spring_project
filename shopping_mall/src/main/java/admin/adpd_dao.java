@@ -16,4 +16,6 @@ public class adpd_dao {
 	
 	private List<MultipartFile> pdfilelist;
 	private String pdfile;
+	private List<MultipartFile> storedfilelist;
+	private String storedfile;
 }
