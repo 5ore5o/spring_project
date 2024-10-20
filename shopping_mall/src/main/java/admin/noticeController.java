@@ -15,7 +15,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 @Controller
 public class noticeController {
-/*
 	@Resource(name="noticeModule")
 	private noticeModule nm;
 	
@@ -54,5 +53,4 @@ public class noticeController {
 
         return result;
     }       
-*/
 }

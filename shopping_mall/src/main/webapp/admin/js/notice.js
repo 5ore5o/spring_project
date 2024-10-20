@@ -23,7 +23,7 @@ savenotice(){
         formData.append("nofile", nofile);
         formData.append("noinfo", noinfo);
 
-	fetch('./admin/notice_save.do', {
+	fetch('/admin/notice_save.do', {
             method: 'POST',
             body: formData,
          })
